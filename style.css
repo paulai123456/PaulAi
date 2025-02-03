@@ -1,0 +1,1353 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover {
+    color: #ffffff; /* Hover color for links */
+}
+
+/* Sidebar Toggle Button (Hamburger Icon) */
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10; /* Ensure the toggle button is above the sidebar */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    position: fixed;
+    left: -250px; /* Initially hidden */
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    transition: transform 0.3s ease; /* Smooth transition for showing sidebar */
+}
+
+.sidebar-open {
+    transform: translateX(250px); /* Show sidebar */
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Saved Chats */
+.save-chat-btn, .saved-chat {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border: none;
+}
+
+.save-chat-btn:hover, .saved-chat:hover {
+    background-color: #2a2e33;
+}
+
+
+.logout-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #222; /* Dark gray background for containers */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #444; /* Dark border for inputs */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2a2e33;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6a11cb;
+}
+
+p {
+    margin-top: 20px;
+}
+
+.logout-container {
+    text-align: center;
+}
+
+/* Chat Page */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #222; /* Dark background for the chat container */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+}
+
+.logout-btn, .login-btn {
+    font-size: 14px;
+    background-color: #2a2e33;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.logout-btn:hover, .login-btn:hover {
+    background-color: #2a2e33;
+}
+
+.chat-box {
+    height: 450px; /* Slightly bigger chat box */
+    overflow-y: scroll;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.bot-message, .user-message {
+    background-color: #444; /* Darker gray for messages */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    max-width: 80%;
+}
+
+.bot-message {
+    background-color: #2a2e33;
+    color: #fff;
+}
+
+.user-message {
+    background-color: #444;
+    color: #fff;
+    align-self: flex-end;
+}
+
+#chat-form {
+    display: flex;
+    align-items: center;
+}
+
+#user-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555; /* Darker border for inputs */
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#chat-form button {
+    padding: 12px;
+    background-color: #2a2e33;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#chat-form button:hover {
+    background-color: #010101;
+}
+
+/* Instruction Message */
+.instruction-message {
+    font-size: 16px;
+    color: #bababa; /* Yellow color for the instruction */
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* New Chat Button */
+#new-chat-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    align-self: flex-start;
+}
+
+#new-chat-btn:hover {
+    background-color: #0056b3;
+}
+.error-container {
+    background: #ffebee;
+    color: #b71c1c;
+    padding: 20px;
+    border: 1px solid #f44336;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.error-container p {
+    font-size: 1em;
+    margin: 10px 0;
+    color: #c62828;
+}
+
+.error-container a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #c62828;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.error-container a:hover {
+    background-color: #b71c1c;
+    cursor: pointer;
+}
+/* Set the body background to black */
+body {
+    background-color: black;
+    color: white;  /* Set text color to white for contrast */
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the error message page */
+.error-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.error-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.error-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.error-container a {
+    color: #00bcd4;  /* Stylish blue color for the link */
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.error-container a:hover {
+    background-color: #666;  /* Hover effect */
+}
+
+
+ul {
+    list-style-type: square;
+    margin-left: 20px;
+}
+
+.email {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.email a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.email a:hover {
+    text-decoration: underline;
+}
+.feedback-form {
+    background-color: #444; /* Darker gray background for the feedback form container */
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white; /* White text for better contrast */
+}
+
+.feedback-form h2 {
+    text-align: center;
+    color: white; /* Ensure the title is visible with white color */
+}
+
+.feedback-form label {
+    color: #ddd; /* Lighter gray for labels */
+    display: block;
+    margin-bottom: 8px;
+}
+
+.feedback-form select, .feedback-form textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #555; /* Slightly lighter gray for form fields */
+    color: white;
+    border: 1px solid #666; /* Lighter border for input fields */
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.feedback-form select:focus, .feedback-form textarea:focus {
+    border-color: #888; /* Focus effect with a lighter border */
+}
+
+.feedback-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.feedback-buttons button {
+    background-color: #555; /* Dark gray buttons */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.feedback-buttons button:hover {
+    background-color: #666; /* Hover effect for buttons */
+}
+
+.feedback-form button {
+    width: 100%;
+    background-color: #5c5c5c; /* Slightly lighter gray for the submit button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.feedback-form button:hover {
+    background-color: #666; /* Darken the submit button on hover */
+}
+/* Style for the Text-to-Speech button */
+.speech-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.speech-btn:hover {
+    background-color: #2b2c2b;
+}
+
+/* Optional: Style for when the bot is speaking */
+.speaking {
+    font-style: italic;
+    color: #999;
+}
+
+
+
+
+/* General styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Black background for the entire page */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.forgot-password-container {
+    background-color: #333; /* Gray background for the container */
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #222;
+    color: white;
+}
+
+input[type="password"]:focus,
+input[type="text"]:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0b0b0c;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #3f51b5;
+}
+
+.error {
+    color: red;
+    margin-bottom: 15px;
+}
+
+p {
+    margin-top: 20px;
+}
+
+a {
+    color: #505056;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Global styles to set the background color of the entire page */
+body {
+    background-color: #000000; /* Set the background color of the entire page to black */
+    color: #fff; /* White text color for general text */
+    font-family: Arial, sans-serif; /* Use a clean font */
+    margin: 0;
+    padding: 0;
+}
+
+/* About & Upgrade Container */
+.about-upgrade-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* About & Upgrade Links */
+.about-link, .upgrade-link {
+    color: #0099ff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    width: 48%;
+    display: block;
+}
+
+.about-link:hover, .upgrade-link:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Premium Badge */
+.premium-badge {
+    background-color: #ffcc00;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+/* Center the Title in Header */
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #222;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+  /* TTS Toggle Switch Styles */
+  .tts-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 16px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+#tts-status {
+    color: #555;
+    font-weight: bold;
+}
+.sidebar {
+    position: fixed;
+    left: -250px; /* Initially off-screen */
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+    transform: translateX(250px); /* Sidebar moves in when active */
+}
+.sidebar {
+    position: fixed;
+    left: -250px; /* Initially off-screen */
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #000000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+    transform: translateX(250px); /* Sidebar moves in when active */
+}
+body {
+    background-color: #000000(0, 0, 0);
+    color: white; /* Ensure text is visible on the black background */
+}
+#saved-chats-list {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.chat-item {
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.chat-item:hover {
+    background-color: #f1f1f1;
+}
+.chat-box {
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 10px;
+}
+/* General Styles for Voice Selection */
+.voice-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  /* Title for the voice selection */
+  .voice-selection-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Style for the dropdown select */
+  .voice-selection-dropdown {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    width: 250px; /* Wider on desktops */
+    transition: all 0.3s ease;
+  }
+  
+  .voice-selection-dropdown:hover {
+    border-color: #0066cc;
+    background-color: #f0f0f0;
+  }
+  
+  .voice-selection-dropdown:focus {
+    outline: none;
+    border-color: #0066cc;
+    background-color: #fff;
+  }
+  
+  /* Optional: style for the button to confirm the selection */
+  .voice-selection-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #0066cc;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .voice-selection-button:hover {
+    background-color: #005bb5;
+  }
+  
+  .voice-selection-button:focus {
+    outline: none;
+  }
+  
+  /* Media Queries for Smaller Screens (Mobile) */
+  @media (max-width: 768px) {
+    .voice-selection-dropdown {
+      width: 80%; /* Adjust the dropdown width to be more mobile-friendly */
+    }
+  
+    .voice-selection-title {
+      font-size: 1.2em;
+    }
+  
+    .voice-selection-button {
+      width: 100%; /* Make the button stretch across the screen */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .voice-selection-title {
+      font-size: 1em; /* Adjust font size for smaller screens */
+    }
+  
+    .voice-selection-dropdown {
+      width: 100%; /* Make the dropdown full width on very small screens */
+    }
+  
+    .voice-selection-button {
+      width: 100%; /* Ensure the button works well on mobile */
+    }
+  }
+/* Settings Icon Styles */
+.settings-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Settings Menu Styles */
+.settings-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    display: none; /* Initially hidden */
+    z-index: 9;
+    width: 200px;
+}
+
+/* Settings Menu Buttons */
+.settings-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.settings-menu button:hover {
+    background-color: #0056b3;
+}
+
+/* Settings Menu Label Styles */
+.settings-menu label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/* Voice Selection Dropdown */
+.voice-selection {
+    margin: 10px 0;
+}
+
+.voice-selection select {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* TTS Toggle Container */
+.tts-toggle-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.tts-toggle-container label {
+    margin-right: 10px;
+}
+
+.tts-toggle-container .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.tts-toggle-container .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.tts-toggle-container .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 50px;
+}
+
+.tts-toggle-container .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+.tts-toggle-container input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+.tts-toggle-container input:checked + .slider:before {
+    transform: translateX(14px);
+}
+/* Settings Icon Styles */
+.settings-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Settings Menu Styles */
+.settings-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    display: none; /* Initially hidden */
+    z-index: 9;
+    width: 250px; /* Default width */
+}
+
+/* Settings Menu Buttons */
+.settings-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.settings-menu button:hover {
+    background-color: #0056b3;
+}
+
+/* Settings Menu Label Styles */
+.settings-menu label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/* Voice Selection Dropdown */
+.voice-selection {
+    margin: 10px 0;
+}
+
+.voice-selection select {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* TTS Toggle Container */
+.tts-toggle-container {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.tts-toggle-container label {
+    margin-right: 10px;
+}
+
+.tts-toggle-container .switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.tts-toggle-container .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.tts-toggle-container .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 50px;
+}
+
+.tts-toggle-container .slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+.tts-toggle-container input:checked + .slider {
+    background-color: #4CAF50;
+}
+
+.tts-toggle-container input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .settings-icon {
+        font-size: 28px;
+    }
+
+    .settings-menu {
+        width: 200px; /* Adjust menu width on mobile */
+        top: 50px;   /* Adjust position for mobile */
+    }
+
+    .settings-menu button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .voice-selection select,
+    .tts-toggle-container .switch {
+        font-size: 14px;
+    }
+
+    .tts-toggle-container label {
+        font-size: 12px;
+    }
+}
+/* Feedback Button Container */
+.feedback-link {
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    height: 100px;  /* Set the height of the container to center the button */
+    margin-top: 20px;  /* Optional: Add some margin to the top */
+}
+
+/* Feedback Button Style */
+.feedback-btn {
+    background-color: #4CAF50;  /* Green background */
+    color: white;  /* White text color */
+    padding: 12px 24px;  /* Padding for the button */
+    text-align: center;  /* Center the text */
+    text-decoration: none;  /* Remove underline */
+    font-size: 16px;  /* Font size */
+    border: none;  /* Remove border */
+    border-radius: 8px;  /* Rounded corners */
+    cursor: pointer;  /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth transition */
+    display: inline-block;
+}
+
+.feedback-btn:hover {
+    background-color: #45a049;  /* Slightly darker green on hover */
+    transform: scale(1.05);  /* Slightly increase size on hover */
+}
+
+.feedback-btn:active {
+    background-color: #3e8e41;  /* Even darker green when button is clicked */
+    transform: scale(1);  /* Return to normal size */
+}
+/* Dark Mode and Light Mode Toggle */
+body[data-theme="dark"] {
+    background-color: #121212;
+    color: white;
+}
+
+body[data-theme="light"] {
+    background-color: #ffffff;
+    color: black;
+}
+
+/* Settings Menu Styling */
+.settings-menu {
+    background-color: #333;
+    color: white;
+}
+
+.settings-menu button,
+.settings-menu select {
+    background-color: #444;
+    color: white;
+    border: 1px solid #666;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.settings-menu button:hover,
+.settings-menu select:hover {
+    background-color: #555;
+}
+
+/* Specific style adjustments for light mode */
+body[data-theme="light"] .settings-menu {
+    background-color: #fff;
+    color: black;
+}
+
+body[data-theme="light"] .settings-menu button,
+body[data-theme="light"] .settings-menu select {
+    background-color: #f0f0f0;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+body[data-theme="light"] .settings-menu button:hover,
+body[data-theme="light"] .settings-menu select:hover {
+    background-color: #e0e0e0;
+}
+
+/* Theme Toggle Button */
+.toggle-theme-btn {
+    padding: 10px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    color: black; /* Set default text color */
+}
+
+body[data-theme="dark"] .toggle-theme-btn {
+    color: white; /* Ensure text is visible in dark mode */
+}
+/* Chat Box Styling */
+.chat-box {
+    padding: 15px;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 400px;
+    margin-top: 20px;
+    background-color: #f0f0f0; /* Default light mode background */
+}
+
+/* Dark Mode Chat Box */
+body[data-theme="dark"] .chat-box {
+    background-color: #333; /* Dark background for dark mode */
+    color: white; /* Light text in dark mode */
+}
+
+/* Light Mode Chat Box */
+body[data-theme="light"] .chat-box {
+    background-color: #ffffff; /* Light background for light mode */
+    color: black; /* Dark text in light mode */
+}
+
+/* User and Bot Messages Styling */
+.user-message,
+.bot-message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+.user-message {
+    background-color: #4caf50;
+    color: white;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #e0e0e0;
+    color: black;
+    align-self: flex-start;
+}
+
+/* Dark Mode User and Bot Messages */
+body[data-theme="dark"] .user-message {
+    background-color: #81c784; /* Lighter green for dark mode */
+}
+
+body[data-theme="dark"] .bot-message {
+    background-color: #555; /* Darker gray for dark mode */
+}
+
+/* Light Mode User and Bot Messages */
+body[data-theme="light"] .user-message {
+    background-color: #4caf50; /* Green for light mode */
+}
+
+body[data-theme="light"] .bot-message {
+    background-color: #e0e0e0; /* Light gray for light mode */
+}
+/* Light Mode */
+body.light {
+    background-color: #f4f4f4; /* Light background for the page */
+    color: #333; /* Dark text */
+}
+
+.chat-box.light {
+    background-color: #fff; /* White background for the chatbox */
+    color: #000; /* Dark text */
+}
+
+/* Dark Mode */
+body.dark {
+    background-color: #333; /* Dark background for the page */
+    color: #fff; /* Light text */
+}
+
+.chat-box.dark {
+    background-color: #444; /* Dark background for chatbox */
+    color: #fff; /* Light text */
+}
+
+/* Sidebar and other elements styling */
+.sidebar.light {
+    background-color: #fff; /* Light background for sidebar */
+    color: #333; /* Dark text */
+}
+
+.sidebar.dark {
+    background-color: #333; /* Dark background for sidebar */
+    color: #fff; /* Light text */
+}
+
+/* Button and links for light mode */
+button.light, a.light {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Button and links for dark mode */
+button.dark, a.dark {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Styling for the header, footer, etc. */
+header.light, footer.light {
+    background-color: #fff;
+    color: #333;
+}
+
+header.dark, footer.dark {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Other elements like forms, input fields, etc. */
+input.light, textarea.light {
+    background-color: #fff;
+    color: #333;
+}
+
+input.dark, textarea.dark {
+    background-color: #444;
+    color: #fff;
+}
+.game-prompt-message {
+    font-size: 14px; /* Smaller font size */
+    color: #555; /* Dark gray color */
+    background-color: #f9f9f9; /* Light background color */
+    border: 1px solid #ddd; /* Light border */
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Centered text */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    word-wrap: break-word; /* Break long words to prevent overflow */
+}
+
+.game-prompt-message strong {
+    font-weight: bold;
+    color: #2a7fba; /* Blue color for the game commands */
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 600px) {
+    .game-prompt-message {
+        font-size: 7px; /* Smaller font size on mobile */
+        padding: 3px; /* Reduce padding for mobile */
+        margin-top: 3px; /* Slightly smaller margin */
+    }
+}
+.upgrade-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.upgrade-button {
+    background-color: #000000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.upgrade-button:hover {
+    background-color: #45a049;
+}
+/* Add to your existing style.css */
+.challenge-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.challenge-button:hover {
+    background-color: #45a049;
+}
+.switch-persona-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.switch-persona-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.persona-selector {
+    margin-bottom: 15px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    font-size: 16px;
+}

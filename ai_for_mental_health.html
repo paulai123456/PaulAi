@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI for Mental Health</title>
+    <style>
+        /* Same styles as before */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        main {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        section {
+            background-color: #ffffff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        section p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        section button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        section button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Chatbot styles */
+        #chatbox {
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #chatbox div {
+            margin: 5px 0;
+        }
+
+        #chatbox .user {
+            text-align: right;
+            color: #007bff;
+        }
+
+        #chatbox .bot {
+            text-align: left;
+            color: #333;
+        }
+
+        #message-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #send-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Back to Home button */
+        #homeButton {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        #homeButton:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI for Mental Health: Supporting Your Emotional Well-being</h1>
+</header>
+
+<main>
+    <section>
+        <h2>Emotional Support Chatbot</h2>
+        <p>Feeling overwhelmed? Chat with our AI for personalized support, mindfulness practices, or simply a listening ear.</p>
+        <button onclick="openChatbot()">Start Chat</button>
+    </section>
+
+    <section>
+        <h2>Mood Tracker</h2>
+        <p>Track your mood daily and receive AI-generated suggestions to improve your emotional well-being.</p>
+        <button onclick="openMoodTracker()">Start Tracking</button>
+    </section>
+
+    <section>
+        <h2>Mindfulness and Meditation</h2>
+        <p>Our AI will recommend guided mindfulness exercises and meditation sessions based on your needs.</p>
+        <button onclick="openMeditation()">Try a Meditation</button>
+    </section>
+
+    <section>
+        <h2>Cognitive Behavioral Therapy Tools</h2>
+        <p>Use our AI-powered CBT tools to challenge negative thought patterns and improve mental clarity.</p>
+        <button onclick="openCBT()">Start CBT</button>
+    </section>
+
+    <section>
+        <h2>Stress Relief Activities</h2>
+        <p>Feeling stressed? Our AI will suggest simple and effective stress-relief activities.</p>
+        <button onclick="openStressRelief()">Get a Stress-Relief Activity</button>
+    </section>
+
+    <section>
+        <h2>Resource Center</h2>
+        <p>Explore articles, self-care tips, and videos to improve your mental health.</p>
+        <button onclick="openResourceCenter()">Visit Resource Center</button>
+    </section>
+
+    <section>
+        <h2>Crisis Support</h2>
+        <p>If you're in crisis, please reach out to the following resources for immediate help:</p>
+        <ul>
+            <li>National Suicide Prevention Lifeline: 1-800-273-8255</li>
+            <li>Text "HELLO" to 741741 for free, 24/7 crisis text support</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Privacy and Data Security</h2>
+        <p>Your privacy is our priority. Learn how your data is handled securely while using AI-powered tools.</p>
+    </section>
+
+    <!-- Back to Home Button -->
+    <button id="homeButton" onclick="goHome()">Back to Home</button>
+</main>
+
+<footer>
+    <p>&copy; 2024 AI Chatbot. Your well-being matters to us.</p>
+</footer>
+
+<!-- Modal for Chatbot -->
+<div id="chatbotModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('chatbotModal')">&times;</span>
+        <h2>Chat with the Bot</h2>
+        <div id="chatbox"></div>
+        <input type="text" id="message-input" placeholder="Type your message..." />
+        <button id="send-button" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<!-- Modal for Mood Tracker -->
+<div id="moodTrackerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('moodTrackerModal')">&times;</span>
+        <h2>Mood Tracker</h2>
+        <form id="moodForm">
+            <label for="mood">How do you feel today?</label>
+            <input type="text" id="mood" name="mood" placeholder="Enter your mood here" required>
+            <button type="submit">Submit Mood</button>
+        </form>
+        <p id="moodResponse"></p>
+    </div>
+</div>
+
+<!-- Modal for Meditation -->
+<div id="meditationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('meditationModal')">&times;</span>
+        <h2>Mindfulness and Meditation</h2>
+        <p>Choose a meditation session:</p>
+        <ul>
+            <li><a href="/mindfulness_and_meditation?session=5" target="_blank">5-min Guided Meditation</a></li>
+            <li><a href="/mindfulness_and_meditation?session=10" target="_blank">10-min Deep Breathing</a></li>
+            <li><a href="/mindfulness_and_meditation?session=15" target="_blank">15-min Relaxation</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal for CBT -->
+<div id="cbtModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('cbtModal')">&times;</span>
+        <h2>Cognitive Behavioral Therapy Tools</h2>
+        <ul>
+            <li><a href="/cbt" target="_blank">Cognitive Restructuring</a></li>
+            <li><a href="/cbt" target="_blank">Behavioral Activation</a></li>
+            <li><a href="/cbt" target="_blank">Thought Records</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal for Stress Relief -->
+<div id="stressReliefModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('stressReliefModal')">&times;</span>
+        <h2>Stress Relief Activities</h2>
+        <p>Choose an activity to reduce stress:</p>
+        <ul>
+            <li><a href="/stress_relief?activity=breathing" target="_blank">Breathing Exercises</a></li>
+            <li><a href="/stress_relief?activity=walk" target="_blank">Take a Short Walk</a></li>
+            <li><a href="/stress_relief?activity=music" target="_blank">Listen to Calming Music</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal for Resource Center -->
+<div id="resourceCenterModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('resourceCenterModal')">&times;</span>
+        <h2>Resource Center</h2>
+        <ul>
+            <li><a href="/self_care_tips" target="_blank">Self-Care Tips</a></li>
+            <li><a href="/mental_health_articles" target="_blank">Mental Health Articles</a></li>
+            <li><a href="/videos" target="_blank">Supportive Videos</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function openChatbot() {
+        document.getElementById('chatbotModal').style.display = 'block';
+    }
+
+    function openMoodTracker() {
+        document.getElementById('moodTrackerModal').style.display = 'block';
+    }
+
+    function openMeditation() {
+        document.getElementById('meditationModal').style.display = 'block';
+    }
+
+    function openCBT() {
+        document.getElementById('cbtModal').style.display = 'block';
+    }
+
+    function openStressRelief() {
+        document.getElementById('stressReliefModal').style.display = 'block';
+    }
+
+    function openResourceCenter() {
+        document.getElementById('resourceCenterModal').style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function goHome() {
+        window.location.href = "/";
+    }
+
+    function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const chatbox = document.getElementById('chatbox');
+        const userMessage = messageInput.value.trim();
+
+        if (userMessage !== "") {
+            chatbox.innerHTML += `<div class="user">${userMessage}</div>`;
+            messageInput.value = "";
+
+            // Here, you can add bot response logic
+            const botResponse = "Thank you for your message!";
+            chatbox.innerHTML += `<div class="bot">${botResponse}</div>`;
+
+            chatbox.scrollTop = chatbox.scrollHeight;  // Scroll to the bottom
+        }
+    }
+</script>
+
+</body>
+</html>

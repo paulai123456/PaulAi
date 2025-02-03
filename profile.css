@@ -1,0 +1,125 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Profile Container */
+.profile-container {
+    background-color: rgb(39, 39, 39);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Profile Header */
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-header h2 {
+    font-size: 28px;
+    color: #333;
+}
+
+.profile-subheader {
+    font-size: 16px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Profile Form */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Profile Fields */
+.profile-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.profile-field label {
+    font-size: 14px;
+    color: #555;
+}
+
+.profile-field input, .profile-field textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.profile-field input:focus, .profile-field textarea:focus {
+    outline: none;
+    border-color: #007BFF;
+}
+
+/* Textarea styling */
+.profile-field textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Update Button */
+.profile-button {
+    margin-top: 20px;
+}
+
+.profile-button button {
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.profile-button button:hover {
+    background-color: #0056b3;
+}
+.return-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.return-button button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.return-button button:hover {
+    background-color: #45a049;
+}
+.profile-picture img {
+    border-radius: 50%; /* Makes the profile picture round */
+    margin-bottom: 20px; /* Adds some space below the picture */
+}

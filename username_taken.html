@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Username Already Taken</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-message">
+            <h1>Username Already Taken</h1>
+            <p>We're sorry, but the username you entered is already taken by someone else.</p>
+            <p>Please choose a different username or try logging in if you already have an account.</p>
+            <div class="error-actions">
+                <a href="{{ url_for('signup') }}" class="button">Choose Another Username</a>
+                <a href="{{ url_for('login') }}" class="button">Log In</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

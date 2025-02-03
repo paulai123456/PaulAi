@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize AI</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your main styles -->
+</head>
+<body>
+
+    <!-- AI Customizing Section -->
+    <div class="ai-customizing">
+        <h3>Customize Your AI</h3>
+        <label for="voice-speed">Voice Speed:</label>
+        <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1">
+        <span id="speed-value">1</span>
+
+        <label for="voice-pitch">Voice Pitch:</label>
+        <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
+        <span id="pitch-value">1</span>
+
+        <button class="save-settings-btn">Save Settings</button>
+    </div>
+
+    <script>
+        // Update voice speed and pitch values in real-time
+        document.getElementById('voice-speed').addEventListener('input', function() {
+            document.getElementById('speed-value').textContent = this.value;
+        });
+        
+        document.getElementById('voice-pitch').addEventListener('input', function() {
+            document.getElementById('pitch-value').textContent = this.value;
+        });
+    </script>
+
+</body>
+</html>

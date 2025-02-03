@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            color: white;
+            text-align: center;
+            padding: 50px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 85%;
+            margin: 0 auto;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
+        .content {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .content h2 {
+            font-size: 2.5rem;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .research-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .research-card h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .research-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #1cc88a;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .research-card {
+                padding: 20px;
+            }
+
+            .container {
+                width: 90%;
+                padding: 20px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI Research</h1>
+</header>
+
+<div class="container">
+    <div class="content">
+        <h2>Explore the Latest in AI Research</h2>
+        <p>Stay updated on the groundbreaking advancements in Artificial Intelligence, machine learning, and more.</p>
+
+        <!-- Research Paper 1 -->
+        <div class="research-card">
+            <h3>Deep Learning for Natural Language Processing</h3>
+            <p>Deep learning has revolutionized NLP, making significant progress in understanding, generating, and translating human language. This research explores the latest models and techniques used in NLP tasks.</p>
+        </div>
+
+        <!-- Research Paper 2 -->
+        <div class="research-card">
+            <h3>AI in Healthcare: Revolutionizing Diagnostics</h3>
+            <p>This research delves into how AI is transforming healthcare, particularly in the field of diagnostics, by providing faster and more accurate results compared to traditional methods.</p>
+        </div>
+
+        <!-- Research Paper 3 -->
+        <div class="research-card">
+            <h3>Reinforcement Learning: Real-World Applications</h3>
+            <p>Reinforcement learning has gained popularity in AI systems that require decision-making. This paper explores its application in robotics, game AI, and autonomous systems.</p>
+        </div>
+
+        <!-- Research Paper 4 -->
+        <div class="research-card">
+            <h3>AI and Ethics: Balancing Progress and Responsibility</h3>
+            <p>This research focuses on the ethical implications of AI, discussing the challenges of ensuring fairness, accountability, and transparency in AI systems.</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 AI Chatbot. <a href="/">Back to Home</a></p>
+</footer>
+
+</body>
+</html>

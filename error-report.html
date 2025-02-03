@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Report</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #333, #f4f4f4, #111); /* Gray to white to black gradient */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        /* Header Styles */
+        header h1 {
+            font-size: 2.5rem;
+            color: #111; /* Black header */
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #111;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        .form-group button {
+            padding: 15px 30px;
+            background-color: #111; /* Black button */
+            color: #fff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #222;
+            transform: scale(1.05);
+        }
+
+        /* Home Button Styles */
+        .home-button {
+            padding: 15px 30px;
+            background-color: #444; /* Dark gray */
+            color: #fff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .home-button:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+
+        /* Footer and Contact Info */
+        footer {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #777;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .contact-info a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Error Report</h1>
+            <p>We’re sorry for the inconvenience! Please provide details of the error and we’ll resolve it soon.</p>
+        </header>
+
+        <form action="/submit-error" method="POST" id="error-form">
+            <div class="form-group">
+                <label for="error-type">Error Type:</label>
+                <select id="error-type" name="error-type" required>
+                    <option value="">Select error type</option>
+                    <option value="404">404 - Not Found</option>
+                    <option value="500">500 - Server Error</option>
+                    <option value="401">401 - Unauthorized</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="error-description">Error Description:</label>
+                <textarea id="error-description" name="error-description" placeholder="Describe the error you encountered" rows="6" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Your Email (Optional):</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email if you'd like us to contact you">
+            </div>
+
+            <div class="form-group">
+                <label for="contact-info">Additional Contact Information (Optional):</label>
+                <textarea id="contact-info" name="contact-info" placeholder="Provide any additional information or contact details" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Submit Report</button>
+            </div>
+        </form>
+
+        <div class="form-group">
+            <button class="home-button" onclick="window.location.href='/';">Go to Home</button>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 PaulAI. All rights reserved.</p>
+        </footer>
+
+        <div class="contact-info">
+            <p>If you'd like to follow up on your report, please feel free to reach out to us at <a href="mailto:alngogpaulpierce821@gmail.com">alngogpaulpierce821@gmail.com</a>.</p>
+        </div>
+    </div>
+</body>
+</html>

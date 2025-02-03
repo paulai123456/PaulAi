@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #424242;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex-grow: 1; /* Ensures the container grows to push the footer to the bottom if content is short */
+        }
+
+        .update-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover effect */
+        .update-card:hover {
+            transform: translateY(-5px); /* Slight lift effect */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Deeper shadow */
+        }
+
+        .update-card h3 {
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        .update-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #424242;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #606060;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto; /* Ensures the footer stays at the bottom of the page */
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Updates</h1>
+    </header>
+
+    <div class="container">
+        {% for update in updates %}
+        <div class="update-card">
+            <h3>Version {{ update.version }} - Released on {{ update.release_date }}</h3>
+            <p><strong>{{ update.title }}</strong></p>
+            <p>{{ update.description }}</p>
+        </div>
+        {% endfor %}
+        <div class="btn-container">
+            <a href="/" class="btn">Back to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 AI Chatbot. <a href="/about">About Us</a> | <a href="/contact">Contact</a></p>
+    </footer>
+</body>
+</html>

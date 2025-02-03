@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Response Challenge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .challenge-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .challenge-description {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .challenge-description p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .response-form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            height: 150px;
+        }
+
+        .form-textarea:focus {
+            border-color: #007bff;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .leaderboard {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .leaderboard h3 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .leaderboard ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .leaderboard li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .leaderboard li:last-child {
+            border-bottom: none;
+        }
+
+        /* Back to Home Button */
+        .back-to-home {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-to-home:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="challenge-container">
+        <h1>Chatbot Response Challenge</h1>
+
+        <!-- Challenge Description -->
+        <div class="challenge-description">
+            <p>Welcome to the Chatbot Response Challenge! Here, you'll test your skills by coming up with creative responses to various scenarios presented by the chatbot. Participate and see if you can make it to the leaderboard! Please put your username after the response.</p>
+        </div>
+
+        <!-- Response Form -->
+        <div class="response-form">
+            <h2>Your Response</h2>
+            <form id="responseForm" method="POST" action="/submit-challenge-response">
+                <label for="scenario">Scenario:</label>
+                <p><strong>Your task is to respond to the following scenario: "How do you explain the importance of AI in today's world?"</strong></p>
+
+                <label for="response">Your Response:</label>
+                <textarea id="response" name="response" class="form-textarea" required></textarea><br>
+
+                <button type="submit">Submit Your Response</button>
+            </form>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="leaderboard">
+            <h3>Leaderboard</h3>
+            <ul id="leaderboardList">
+                <!-- Example leaderboard entries -->
+                <li>1.  </li> 
+                <li>2. </li>
+                <li>3. </li>
+            </ul>
+        </div>
+
+        <!-- Back to Home Button -->
+        <a href="/" class="back-to-home">Back to Home</a>
+    </div>
+
+    <script>
+        document.getElementById('responseForm').onsubmit = function(event) {
+            event.preventDefault();
+            const response = document.getElementById('response').value;
+            if (response.trim()) {
+                alert('Your response has been submitted!');
+                fetch('/submit-challenge-response', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ response: response })
+                }).then(response => response.json())
+                  .then(data => {
+                    if (data.message === "Response submitted successfully!") {
+                        alert("Response submitted successfully!");
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                  });
+            }
+        };
+    </script>
+</body>
+</html>

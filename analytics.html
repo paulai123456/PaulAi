@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 0;
+            font-size: 24px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        .back-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #d32f2f;
+        }
+
+        #analytics-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        canvas {
+            margin-top: 20px;
+            width: 80% !important;  /* Make the chart 80% width of its container */
+            max-width: 600px;       /* Cap the width to a max of 600px */
+            height: 400px !important; /* Keep a fixed height for the chart */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Analytics Dashboard
+    </header>
+
+    <section id="analytics-container">
+        <!-- Back Button -->
+        <button class="back-button" onclick="location.href='/'">Back to Chat</button>
+
+        <!-- Analytics Overview -->
+        <h2>Real-Time Analytics</h2>
+        <p>Total Messages: <span id="messageCount">Loading...</span></p>
+
+        <!-- Sentiment Analysis Chart -->
+        <canvas id="sentimentChart"></canvas>
+    </section>
+
+    <script>
+        // Fetch Analytics Data from the Backend
+        async function fetchAnalytics() {
+            try {
+                const response = await fetch('/analytics-data');
+                const data = await response.json();
+
+                // Update Total Messages
+                document.getElementById('messageCount').innerText = data.messageCount;
+
+                // Update Sentiment Chart
+                sentimentChart.data.datasets[0].data = [
+                    data.sentiment.positive,
+                    data.sentiment.negative,
+                    data.sentiment.neutral
+                ];
+                sentimentChart.update();
+            } catch (error) {
+                console.error('Error fetching analytics data:', error);
+                document.getElementById('messageCount').innerText = 'Error loading data';
+            }
+        }
+
+        // Initialize Chart.js for Sentiment Analysis
+        const ctx = document.getElementById('sentimentChart').getContext('2d');
+        const sentimentChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Positive', 'Negative', 'Neutral'],
+                datasets: [{
+                    label: 'Sentiment Analysis',
+                    data: [0, 0, 0], // Default data
+                    backgroundColor: ['#4caf50', '#f44336', '#ffeb3b'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false // Allow resizing
+            }
+        });
+
+        // Load Analytics Data on Page Load
+        fetchAnalytics();
+    </script>
+</body>
+</html>

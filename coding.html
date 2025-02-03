@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Coding - Frontend & Backend</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    text-align: center;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.intro p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.content {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.content h3 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+
+.content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Code Library */
+.code-library {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.code-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.code-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.code-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.code-card p {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.code-card button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.code-card button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Example Code */
+.example-code {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 10px;
+    color: #333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Footer */
+footer {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.footer-buttons {
+    margin-top: 15px;
+}
+
+.footer-buttons a {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.footer-buttons a:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .intro p, .content p {
+        font-size: 0.9rem;
+    }
+
+    .content h3 {
+        font-size: 1.3rem;
+    }
+
+    .code-card {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .code-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .code-card p {
+        font-size: 0.85rem;
+    }
+
+    .code-card button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+
+    .footer-buttons a {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.2rem;
+    }
+
+    header p {
+        font-size: 0.9rem;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .intro p, .content p {
+        font-size: 0.8rem;
+    }
+
+    .content h3 {
+        font-size: 1.1rem;
+    }
+
+    .code-card {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .code-card h3 {
+        font-size: 1rem;
+    }
+
+    .code-card p {
+        font-size: 0.8rem;
+    }
+
+    .code-card button {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    footer {
+        font-size: 0.9rem;
+    }
+
+    .footer-buttons a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Learn Coding - Frontend & Backend</h1>
+        <p>Explore the essentials of coding for both Frontend and Backend development!</p>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2 class="section-title">What is Coding and Why is It Important?</h2>
+            <p>Coding, also known as programming, is the process of writing instructions for a computer to execute. These instructions form the foundation of all technology, from websites to mobile apps to artificial intelligence. Learning coding is essential in today’s world, as it enables you to create, automate, and solve real-world problems. It opens doors to countless career opportunities in the tech industry, which continues to grow exponentially.</p>
+        </section>
+
+        <section class="frontend">
+            <h2 class="section-title">Frontend Development</h2>
+            <p>Frontend development is the part of web development that focuses on what users see and interact with. It involves creating the layout, design, structure, and behavior of a website. The core technologies for frontend development are HTML, CSS, and JavaScript.</p>
+            
+            <div class="content">
+                <h3>HTML (HyperText Markup Language)</h3>
+                <p>HTML is the standard language used to create web pages. It provides the structure and content of the page, including elements like headings, paragraphs, links, images, and more.</p>
+                <p>Learning HTML is the first step in web development. It is essential because every website you see on the internet uses HTML for its content structure. Think of it as the skeleton of a webpage.</p>
+
+                <h3>CSS (Cascading Style Sheets)</h3>
+                <p>CSS is used to style and layout web pages. It controls how the HTML elements are displayed, including colors, fonts, and positioning.</p>
+                <p>With CSS, you can create visually appealing websites, add animations, and ensure that a page looks great on all screen sizes (responsive design).</p>
+
+                <h3>JavaScript</h3>
+                <p>JavaScript is a programming language that makes websites interactive. It allows you to create dynamic content like forms, animations, and even games.</p>
+                <p>JavaScript can be used both on the client-side (in the browser) and on the server-side (using Node.js). It is the most commonly used language for frontend development because of its versatility and power.</p>
+            </div>
+
+            <div class="code-library">
+                <div class="code-card">
+                    <h3>HTML Example</h3>
+                    <p>HTML (HyperText Markup Language) is used to create the structure of web pages.</p>
+                    <button onclick="showExample('html')">Show Example</button>
+                    <div id="html-example" class="example-code" style="display: none;">
+                        <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My First Webpage&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+    &lt;p&gt;Welcome to learning HTML!&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="code-card">
+                    <h3>CSS Example</h3>
+                    <p>CSS (Cascading Style Sheets) is used to style web pages and make them visually appealing.</p>
+                    <button onclick="showExample('css')">Show Example</button>
+                    <div id="css-example" class="example-code" style="display: none;">
+                        <pre>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #4CAF50;
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="code-card">
+                    <h3>JavaScript Example</h3>
+                    <p>JavaScript is used to add interactivity to web pages.</p>
+                    <button onclick="showExample('js')">Show Example</button>
+                    <div id="js-example" class="example-code" style="display: none;">
+                        <pre>
+document.getElementById("myButton").onclick = function() {
+  alert("Button clicked!");
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="backend">
+            <h2 class="section-title">Backend Development</h2>
+            <p>Backend development is the part of web development that focuses on the server-side. It deals with the logic, databases, and APIs that power a website or web application. The common backend languages are Python, Ruby, and JavaScript (Node.js).</p>
+
+            <div class="content">
+                <h3>Python</h3>
+                <p>Python is one of the most popular programming languages, known for its simplicity and readability. It is used for web development (using frameworks like Django and Flask), data analysis, artificial intelligence, and more.</p>
+                <p>Python is a great language for beginners because its syntax is clear and easy to understand. It has a large community and a wealth of libraries and frameworks to help developers build powerful applications quickly.</p>
+
+                <h3>Node.js</h3>
+                <p>Node.js is a JavaScript runtime that allows you to run JavaScript on the server-side. It’s ideal for building fast and scalable applications. Node.js is built on the V8 JavaScript engine and uses event-driven architecture, making it efficient for I/O-heavy operations like real-time communication.</p>
+
+                <h3>Ruby</h3>
+                <p>Ruby is an elegant programming language often used with the Rails framework to build web applications. Ruby is known for its simplicity and developer-friendly syntax, making it easy to write and maintain code. Rails (Ruby on Rails) is a popular framework for building database-driven websites quickly.</p>
+            </div>
+
+            <div class="code-library">
+                <div class="code-card">
+                    <h3>Python Example</h3>
+                    <p>Python is a versatile language commonly used for backend development.</p>
+                    <button onclick="showExample('python')">Show Example</button>
+                    <div id="python-example" class="example-code" style="display: none;">
+                        <pre>
+import flask
+
+app = flask.Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello, World!"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="code-card">
+                    <h3>Node.js Example</h3>
+                    <p>Node.js is a JavaScript runtime used for building server-side applications.</p>
+                    <button onclick="showExample('nodejs')">Show Example</button>
+                    <div id="nodejs-example" class="example-code" style="display: none;">
+                        <pre>
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="code-card">
+                    <h3>Ruby Example</h3>
+                    <p>Ruby is a dynamic, object-oriented language often used with the Rails framework.</p>
+                    <button onclick="showExample('ruby')">Show Example</button>
+                    <div id="ruby-example" class="example-code" style="display: none;">
+                        <pre>
+require 'sinatra'
+
+get '/' do
+  "Hello, World!"
+end
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Learn Coding - All Rights Reserved</p>
+        <div class="footer-buttons">
+            <a href="/">Home</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        function showExample(language) {
+            const exampleDivs = document.querySelectorAll('.example-code');
+            exampleDivs.forEach(div => div.style.display = 'none');
+            document.getElementById(language + '-example').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Coding Sessions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+
+        nav {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f1c40f;
+        }
+
+        .container {
+            width: 85%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .session-card {
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .session-card h3 {
+            color: #333;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .session-card p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .register-btn {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .register-btn:hover {
+            background-color: #555;
+        }
+
+        .session-archive {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .session-archive a {
+            background-color: #e0e0e0;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .session-archive a:hover {
+            background-color: #bdbdbd;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            overflow: auto;
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 40%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        form label {
+            display: block;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Live Coding Sessions</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/live-coding-sessions">Live Coding Sessions</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Upcoming Live Coding Sessions</h2>
+    <p>Join our sessions to learn, share, and improve your skills. Register below!</p>
+
+    <div class="session-card">
+        <h3>Session 1: Introduction to AI</h3>
+        <p>Date: February 20, 2025</p>
+        <p>Time: 2:00 PM UTC</p>
+        <button class="register-btn" onclick="openRegisterForm(1)">Register for Session</button>
+    </div>
+
+    <div class="session-card">
+        <h3>Session 2: Python for Beginners</h3>
+        <p>Date: March 5, 2025</p>
+        <p>Time: 4:00 PM UTC</p>
+        <button class="register-btn" onclick="openRegisterForm(2)">Register for Session</button>
+    </div>
+
+    <div class="session-card">
+        <h3>Session 3: Web Development with Flask</h3>
+        <p>Date: April 10, 2025</p>
+        <p>Time: 6:00 PM UTC</p>
+        <button class="register-btn" onclick="openRegisterForm(3)">Register for Session</button>
+    </div>
+
+    <h2>Previous Sessions</h2>
+    <p>Catch up on missed sessions by watching the archives!</p>
+
+    <div class="session-archive">
+        <a href="#" onclick="watchArchive(1)">Watch Archived Session 1</a>
+        <a href="#" onclick="watchArchive(2)">Watch Archived Session 2</a>
+        <a href="#" onclick="watchArchive(3)">Watch Archived Session 3</a>
+    </div>
+
+    <!-- Registration Form Modal -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterForm()">&times;</span>
+            <h2>Register for the Session</h2>
+            <form id="register-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <input type="hidden" id="session-id" name="session-id">
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Open the registration form modal
+    function openRegisterForm(sessionId) {
+        document.getElementById('register-modal').style.display = 'block';
+        document.getElementById('session-id').value = sessionId;
+    }
+
+    // Close the registration form modal
+    function closeRegisterForm() {
+        document.getElementById('register-modal').style.display = 'none';
+    }
+
+    // Handle form submission and send data to the backend
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get form data
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const sessionId = document.getElementById('session-id').value;
+
+        // Prepare data to be sent
+        const formData = {
+            name: name,
+            email: email,
+            session_id: sessionId
+        };
+
+        // Send data to the backend using Fetch API
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Registration successful!');
+                closeRegisterForm();
+            } else {
+                alert('Registration failed. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error during registration:', error);
+            alert('There was an error with your registration.');
+        });
+    });
+
+    // Watch Archived Session
+    function watchArchive(sessionId) {
+        const archiveLinks = {
+            1: 'https://www.example.com/archive1',
+            2: 'https://www.example.com/archive2',
+            3: 'https://www.example.com/archive3'
+        };
+
+        window.open(archiveLinks[sessionId], '_blank');
+    }
+</script>
+
+</body>
+</html>

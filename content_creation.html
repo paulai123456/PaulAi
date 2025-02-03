@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AI-Powered Content Creation Tool</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #5f2c82, #49a09d);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+      flex-direction: column;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 900px;
+      margin-top: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.8rem;
+      color: #333;
+      margin-bottom: 25px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .form-group select,
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
+    .form-group select,
+    .form-group input {
+      background-color: #fff;
+    }
+    .form-group textarea {
+      height: 120px;
+      background-color: #ffffff;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #4CAF50;
+      outline: none;
+      background-color: #fff;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .button:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    .button:active {
+      transform: translateY(1px);
+    }
+    .output-section {
+      margin-top: 40px;
+      padding: 25px;
+      background-color: #dcd9d9;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      display: none;
+      text-align: center;
+    }
+    .output-section pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 1.1rem;
+      color: #000000;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      font-size: 1.4rem;
+      color: #777;
+    }
+    footer {
+      width: 100%;
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .footer-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 10px;
+    }
+    .footer-buttons a {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .footer-buttons a:hover {
+      background-color: #45a049;
+      transform: translateY(-2px);
+    }
+    .footer-buttons a:active {
+      transform: translateY(1px);
+    }
+    #dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #dark-mode-toggle:hover {
+      background-color: #45a049;
+    }
+    .dark-mode {
+      background: linear-gradient(135deg, #333, #111);
+      color: #ddd;
+    }
+    .dark-mode .container {
+      background-color: #222;
+      color: #898989;
+    }
+    .dark-mode .form-group label,
+    .dark-mode h1 {
+      color: #fff;
+    }
+    .dark-mode .button {
+      background-color: #888;
+    }
+    .dark-mode .output-section pre {
+      background-color: #333;
+      color: #9c9c9c;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="dark-mode-toggle">Toggle Dark Mode</button>
+
+  <div class="container">
+    <h1>AI-Powered Content Creation Tool</h1>
+
+    <!-- Language selection -->
+    <div class="form-group">
+      <label for="language">Select Language</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+      </select>
+    </div>
+
+    <!-- Content type selection -->
+    <div class="form-group">
+      <label for="content-type">Choose Content Type</label>
+      <select id="content-type">
+        <option value="blog">Blog Post</option>
+        <option value="email">Email</option>
+        <option value="product-description">Product Description</option>
+        <option value="social-media">Social Media Post</option>
+      </select>
+    </div>
+
+    <!-- Tone selection -->
+    <div class="form-group">
+      <label for="tone">Select Tone</label>
+      <select id="tone">
+        <option value="casual">Casual</option>
+        <option value="formal">Formal</option>
+        <option value="humorous">Humorous</option>
+        <option value="professional">Professional</option>
+      </select>
+    </div>
+
+    <!-- Length selection -->
+    <div class="form-group">
+      <label for="length">Select Length</label>
+      <select id="length">
+        <option value="short">Short</option>
+        <option value="medium">Medium</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+
+    <!-- Input prompt for content -->
+    <div class="form-group">
+      <label for="input-text">Enter Your Prompt</label>
+      <textarea id="input-text" placeholder="Enter the topic or idea you want the AI to write about..."></textarea>
+      <div id="word-counter">: 0 | Character Count: 0</div>
+    </div>
+
+    <!-- Generate button -->
+    <button class="button" onclick="generateContent()">Generate Content</button>
+
+    <!-- Loading state -->
+    <div class="loading" id="loading">Generating Content...</div>
+
+    <!-- Output section (hidden by default) -->
+    <div class="output-section" id="output-section">
+      <h2>Generated Content</h2>
+      <pre id="output-text">Your content will appear here...</pre>
+      <button class="button" onclick="copyContent()">Copy Content</button>
+      <button class="button" onclick="downloadContent()">Download Content</button>
+      <button class="button" onclick="saveDraft()">Save Draft</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-buttons">
+      <a href="/">Home</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    let isDarkMode = false;
+
+    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-mode', isDarkMode);
+    });
+
+    document.getElementById('input-text').addEventListener('input', () => {
+      const text = document.getElementById('input-text').value;
+      const wordCount = text.trim().split(/\s+/).filter(word => word).length;
+      const charCount = text.length;
+      document.getElementById('word-counter').innerText = `Word Count: ${wordCount} | Character Count: ${charCount}`;
+    });
+
+    function generateSuggestions() {
+      fetch('/generate-suggestions')
+        .then(response => response.json())
+        .then(data => {
+          const suggestionsList = document.getElementById('suggestions-list');
+          suggestionsList.innerHTML = '';
+          data.suggestions.forEach(suggestion => {
+            const listItem = document.createElement('li');
+            listItem.textContent = suggestion;
+            suggestionsList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error('Error generating suggestions:', error));
+    }
+
+    function generateContent() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('output-section').style.display = 'none';
+
+      const contentType = document.getElementById('content-type').value;
+      const tone = document.getElementById('tone').value;
+      const length = document.getElementById('length').value;
+      const inputText = document.getElementById('input-text').value;
+      const language = document.getElementById('language').value;
+
+      const data = new FormData();
+      data.append('content_type', contentType);
+      data.append('tone', tone);
+      data.append('length', length);
+      data.append('input_text', inputText);
+      data.append('language', language);
+
+      fetch('/generate-content', {
+        method: 'POST',
+        body: data
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('output-text').innerText = data.generated_content;
+        document.getElementById('output-section').style.display = 'block';
+        document.getElementById('output-section').scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Error generating content:', error);
+        document.getElementById('loading').style.display = 'none';
+      });
+    }
+
+    function copyContent() {
+      const content = document.getElementById('output-text').innerText;
+      navigator.clipboard.writeText(content).then(() => {
+        alert('Content copied to clipboard!');
+      });
+    }
+
+    function downloadContent() {
+      const content = document.getElementById('output-text').innerText;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'generated_content.txt';
+      link.click();
+    }
+
+    function saveDraft() {
+      const content = document.getElementById('output-text').innerText;
+      const drafts = JSON.parse(localStorage.getItem('drafts') || '[]');
+      drafts.push(content);
+      localStorage.setItem('drafts', JSON.stringify(drafts));
+      alert('Draft saved locally!');
+    }
+  </script>
+</body>
+</html>

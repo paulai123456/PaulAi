@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support - AI Website</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your existing stylesheet -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #fff;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #444;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            background-color: #666;
+        }
+
+        .support-container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .support-section {
+            margin-bottom: 30px;
+        }
+
+        .support-section h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .support-section p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #666;
+        }
+
+        footer {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Support</h1>
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="/faq">FAQ</a>
+        </div>
+    </header>
+
+    <div class="support-container">
+        <h2>Welcome to Customer Support</h2>
+
+        <!-- Support Section 1: General Information -->
+        <div class="support-section">
+            <h3>How Can We Assist You?</h3>
+            <p>If you are experiencing issues or need assistance with our AI services, you are in the right place! Here are some of the ways we can help:</p>
+            <ul>
+                <li>Technical Issues with AI Features</li>
+                <li>Account Management</li>
+                <li>Feature Requests</li>
+                <li>General Inquiries</li>
+            </ul>
+        </div>
+
+        <!-- Support Section 2: FAQs -->
+        <div class="support-section">
+            <h3>Frequently Asked Questions (FAQs)</h3>
+            <p>Here are some common questions that may help resolve your issue faster:</p>
+            <h4>1. How do I use the AI chatbot?</h4>
+            <p>Simply type a question or command into the chat box, and the AI will respond based on your input. It's a simple and interactive experience!</p>
+            <h4>2. What should I do if the AI isn't responding?</h4>
+            <p>If the AI doesn't respond, try refreshing the page or checking your internet connection. If the issue persists, please contact support.</p>
+        </div>
+
+        <!-- Support Section 3: Contact Form -->
+        <div class="support-section">
+            <h3>Contact Our Support Team</h3>
+            <p>If you're unable to find a solution here or need additional help, please fill out the form below, and one of our support agents will get back to you shortly.</p>
+            <form class="contact-form" action="/submit-support-request" method="POST">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Describe your issue or inquiry" required></textarea>
+
+                <button type="submit">Submit Support Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 AI Website | All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

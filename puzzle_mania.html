@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Mania</title>
+    <style>
+        /* Basic styling for the game */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .game-description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 18px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        #game-result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #exit-button {
+            background-color: #e74c3c;
+        }
+
+        #exit-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Puzzle Mania</h1>
+        <p>Challenge your mind with exciting puzzles and brain teasers.</p>
+    </header>
+
+    <section class="game-description">
+        <h2>Game Overview</h2>
+        <p>Puzzle Mania is the ultimate puzzle game where you solve tricky challenges, unlock new levels, and test your wits to the max. Are you ready for the challenge?</p>
+        <button id="startGameButton">Start Game</button>
+        <button id="exitButton" style="display: none;" onclick="exitGame()">Exit Game</button>
+        <div id="game-result"></div>
+        <div id="timer"></div>
+        <div id="round-info"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Game Studio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let timer;
+        let timeLeft = 30;  // 30 seconds for the puzzle
+        let gameActive = false;
+        let round = 1;
+        const totalRounds = 30;
+
+        document.getElementById("startGameButton").addEventListener("click", startGame);
+        document.getElementById("exitButton").style.display = "none"; // Hide Exit Button initially
+
+        function startGame() {
+            gameActive = true;
+            round = 1; // Reset round to 1
+            document.getElementById("game-result").innerHTML = "";
+            document.getElementById("timer").innerHTML = `Time left: ${timeLeft}s`;
+            document.getElementById("round-info").innerHTML = `Round: ${round} of ${totalRounds}`;
+            document.getElementById("startGameButton").style.display = "none";
+            document.getElementById("exitButton").style.display = "inline-block"; // Show Exit Button
+
+            startTimer();
+
+            // Start first puzzle
+            showPuzzle();
+        }
+
+        function startTimer() {
+            timer = setInterval(function () {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (gameActive) {
+                        document.getElementById("game-result").innerHTML = "Time's up! You failed to solve the puzzle.";
+                        gameActive = false;
+                    }
+                } else {
+                    timeLeft--;
+                    document.getElementById("timer").innerHTML = `Time left: ${timeLeft}s`;
+                }
+            }, 1000);
+        }
+
+        function showPuzzle() {
+            let puzzleAnswer = prompt(`Round ${round}: Solve the puzzle: What is ${round * 2} + 3?`);
+
+            let resultText = '';
+            if (parseInt(puzzleAnswer) === (round * 2 + 3)) {
+                resultText = `Correct! You solved the puzzle for round ${round}!`;
+                nextRound();
+            } else {
+                resultText = `Incorrect! Try again. <button onclick='retryPuzzle()'>Retry</button>`;
+            }
+
+            document.getElementById("game-result").innerHTML = resultText;
+        }
+
+        function retryPuzzle() {
+            showPuzzle();
+        }
+
+        function nextRound() {
+            if (round < totalRounds) {
+                round++;
+                document.getElementById("round-info").innerHTML = `Round: ${round} of ${totalRounds}`;
+                timeLeft = 30; // reset timer to 30 seconds for the next round
+                startTimer();
+                showPuzzle();
+            } else {
+                gameActive = false;
+                document.getElementById("game-result").innerHTML = "Congratulations! You've completed all 30 rounds!";
+            }
+        }
+
+        function exitGame() {
+            if (confirm("Are you sure you want to exit the game?")) {
+                // Redirect to /games
+                window.location.href = "/games";
+            }
+        }
+    </script>
+</body>
+</html>

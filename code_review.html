@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Code Review</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+            color: #007BFF;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 350px;
+            padding: 15px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 0;
+            margin-top: 40px;
+            border-top: 2px solid #ccc;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            transition: text-decoration 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-btn:hover {
+            background-color: #218838;
+        }
+
+        .download-btn {
+            background-color: #28a745;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+        }
+
+        .line-error {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                width: 90%;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            textarea {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Home Button -->
+    <a href="/" class="home-btn">Home</a>
+
+    <div class="container">
+        <h1>Automated Code Review</h1>
+
+        <form id="codeForm">
+            <div class="card">
+                <label for="code" style="font-size: 18px; font-weight: 500; color: #333;">Paste your Python code here:</label><br>
+                <textarea id="code" name="code" placeholder="Enter your Python code for review" required></textarea><br><br>
+                <button type="submit" class="btn">Submit Code for Review</button>
+            </div>
+        </form>
+
+        <div class="result" id="reviewResult"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Automated Code Review | <a href="/privacy-terms">Privacy Policy</a> | <a href="/contact">Contact Us</a></p>
+    </footer>
+
+    <script>
+        document.getElementById("codeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let code = document.getElementById("code").value;
+
+            fetch("/review_code", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ code: code }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                let reviewResult = document.getElementById("reviewResult");
+
+                if (data.error) {
+                    reviewResult.innerHTML = `<h2 class="error">Error</h2><p>${data.error}</p>`;
+                } else {
+                    reviewResult.innerHTML = `
+                        <h2>Review Results</h2>
+                        <p><strong>Errors:</strong> ${data.errors}</p>
+                        <p><strong>Warnings:</strong> ${data.warnings}</p>
+                        <p><strong>Suggestions:</strong> ${data.suggestions}</p>
+                        <pre><strong>Pylint Output:</strong>\n${data.pylint_output}</pre>
+                        <br>
+                        <a href="/download_report" class="btn download-btn">Download Report</a>
+                        <div id="lineByLineReview">
+                            <h3>Line-by-Line Breakdown:</h3>
+                            ${generateLineReview(data.pylint_output)}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                document.getElementById("reviewResult").innerHTML = `<h2 class="error">Error</h2><p>${error}</p>`;
+            });
+        });
+
+        function generateLineReview(pylint_output) {
+            let lines = pylint_output.split('\n');
+            let reviewHTML = '<ul>';
+            
+            lines.forEach(line => {
+                if (line.toLowerCase().includes('error')) {
+                    reviewHTML += `<li class="line-error">${line}</li>`;
+                } else {
+                    reviewHTML += `<li>${line}</li>`;
+                }
+            });
+
+            reviewHTML += '</ul>';
+            return reviewHTML;
+        }
+    </script>
+
+</body>
+</html>

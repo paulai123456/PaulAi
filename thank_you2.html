@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #4caf50;
+    }
+    a {
+      text-decoration: none;
+      color: #4caf50;
+      font-weight: bold;
+    }
+    a:hover {
+      color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Thank You!</h1>
+    <p>Dear {{ name }},</p>
+    <p>Thank you for applying for the <strong>{{ job_title }}</strong> position. We have received your application and will review it shortly.</p>
+    <p><a href="/">Return to Careers Page</a></p>
+  </div>
+</body>
+</html>

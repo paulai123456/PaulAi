@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Community</title>
+    <style>
+        body, h1, h2, p {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            padding-top: 10px;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            flex: 1;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .community-header h1 {
+            font-size: 36px;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .community-header p {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .community-features {
+            display: flex;
+            justify-content: space-around;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .feature {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .feature h2 {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .feature p {
+            font-size: 16px;
+            color: #555;
+        }
+        .join-community {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .join-community button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+        .join-community button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+        .social-media-links {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .social-media-links a {
+            color: #007bff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        .social-media-links a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/community-projects">Community Projects</a></li>
+                <li><a href="/forum">Forum</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="community-header">
+            <h1>Welcome to the AI Community</h1>
+            <p>Join us to collaborate, share ideas, and learn about AI!</p>
+        </section>
+
+        <section class="community-features">
+            <div class="feature">
+                <h2>Collaborate</h2>
+                <p>Work with other AI enthusiasts on projects, challenges, and learning opportunities.</p>
+            </div>
+            <div class="feature">
+                <h2>Learn</h2>
+                <p>Access tutorials, articles, and resources to boost your AI knowledge and skills.</p>
+            </div>
+            <div class="feature">
+                <h2>Share Ideas</h2>
+                <p>Share your thoughts, innovations, and insights with the community and get feedback.</p>
+            </div>
+        </section>
+
+        <section class="join-community">
+            <button onclick="window.location.href='signup.html'">Join Now</button>
+        </section>
+
+        <section class="social-media-links">
+            <a href="https://www.youtube.com/@PaulAi-q1r" target="_blank">YouTube</a>
+            <a href="https://www.tiktok.com/@paulai68" target="_blank">TikTok</a>
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI Community | All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

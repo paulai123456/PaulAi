@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VibeSpace</title>
+    <link rel="stylesheet" href="static/vibespace.css">
+</head>
+<style>
+    /* Dark Mode Adjustments */
+body.dark-theme .sidebar {
+    background-color: #1a1a1a;
+}
+
+body.dark-theme .sidebar a {
+    background-color: #222;
+    color: #ddd;
+}
+
+body.dark-theme .sidebar a:hover {
+    background-color: #555;
+}
+
+body.dark-theme .video-container {
+    background-color: #111;
+}
+
+body.dark-theme .video {
+    background-color: #222;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .video-details {
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .buttons button {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+body.dark-theme .upload-form {
+    background-color: #222;
+}
+
+body.dark-theme .profile-page {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+body.dark-theme .search-bar {
+    background-color: #222;
+}
+
+</style>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" id="homeLink">🏠 Home</a>
+        <a href="/" id="aiHomeLink">💻 AI Website Home</a> <!-- AI Website Home Button -->
+        <a href="#" id="profileLink">👤 Profile</a>
+        <a href="#" id="uploadLink">⬆️ Upload</a>
+        <a href="#" id="searchLink">🔍 Search</a>
+        <a href="#" id="toggleTheme">🌙/🌞 Theme</a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar" style="display: none;">
+        <input type="text" id="searchInput" placeholder="Search videos..." />
+        <button id="searchButton">Search</button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="video-container" id="videoFeed">
+        <!-- Videos will be dynamically loaded here -->
+    </div>
+
+    <!-- Profile Page -->
+    <div class="profile-page" id="profilePage" style="display: none;">
+        <h1>User Profile</h1>
+        <p id="username">Username: User123</p>
+        <p id="bio">Bio: Hello, I love sharing videos!</p>
+        <button id="editProfileButton">Edit Profile</button>
+
+        <!-- Edit Profile Form -->
+        <div class="profile-form" id="profileForm">
+            <input type="text" id="newUsername" placeholder="New Username" />
+            <input type="text" id="newBio" placeholder="New Bio" />
+            <button id="saveProfileButton">Save</button>
+            <button id="cancelEditButton">Cancel</button>
+        </div>
+
+        <!-- Followed Users -->
+        <div class="followed-users">
+            <h2>Followed Users</h2>
+            <div id="followedUsersList"></div>
+        </div>
+    </div>
+
+    <!-- Upload Form -->
+    <section class="upload-form" id="uploadForm" style="display: none;">
+        <input type="text" id="title" placeholder="Video Title" />
+        <input type="file" id="videoFile" accept="video/*" />
+        <button id="uploadButton">Upload Video</button>
+    </section>
+
+    <script>
+        let videoCount = 0;
+        let userVideos = [];
+        let likedVideos = {};
+        let comments = {};
+        let followedUsers = [];
+        let searchBarVisible = false; // To track if the search bar is visible
+        let isDarkTheme = false; // For dark/light theme toggle
+
+        // Function to load and display a new video
+        function loadNewVideo() {
+            videoCount++;
+            const videoFeed = document.getElementById('videoFeed');
+            
+            const video = document.createElement('div');
+            video.classList.add('video');
+            video.innerHTML = ` 
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-details">
+                    <h4>VibeSpace Video ${videoCount}</h4>
+                    <p>Posted by User${videoCount}</p>
+                    <p>Duration: 3:45</p> <!-- Video duration -->
+                    <div class="like-dislike">
+                        <button class="like-btn" onclick="likeVideo(${videoCount})">👍 Like</button>
+                        <button class="dislike-btn" onclick="dislikeVideo(${videoCount})">👎 Dislike</button>
+                        <span id="likeCount-${videoCount}">Likes: 0</span> | 
+                        <span id="dislikeCount-${videoCount}">Dislikes: 0</span>
+                    </div>
+                    <button class="comment-btn" onclick="commentVideo(${videoCount})">💬 Comment</button>
+                    <div class="comments-section" id="comments-${videoCount}">
+                        <!-- Comments will appear here -->
+                    </div>
+                    <div class="video-progress">
+                        <label for="progress">Progress:</label>
+                        <progress id="progress-${videoCount}" value="0" max="100"></progress>
+                    </div>
+                </div>
+            `;
+            videoFeed.appendChild(video);
+        }
+
+        // Function to like a video
+        function likeVideo(videoId) {
+            likedVideos[videoId] = (likedVideos[videoId] || 0) + 1;
+            document.getElementById(`likeCount-${videoId}`).textContent = `Likes: ${likedVideos[videoId]}`;
+            showNotification(`You liked Video ${videoId}`);
+        }
+
+        // Function to dislike a video
+        function dislikeVideo(videoId) {
+            let dislikeCount = document.getElementById(`dislikeCount-${videoId}`).textContent;
+            dislikeCount = parseInt(dislikeCount.split(":")[1].trim()) + 1;
+            document.getElementById(`dislikeCount-${videoId}`).textContent = `Dislikes: ${dislikeCount}`;
+        }
+
+        // Function to comment on a video
+        function commentVideo(videoId) {
+            let comment = prompt(`Enter your comment for Video ${videoId}:`);
+            if (comment) {
+                if (!comments[videoId]) comments[videoId] = [];
+                comments[videoId].push(comment);
+                updateComments(videoId);
+            }
+        }
+
+        // Function to update comments section for a video
+        function updateComments(videoId) {
+            const commentsSection = document.getElementById(`comments-${videoId}`);
+            commentsSection.innerHTML = comments[videoId].map(comment => `<p>${comment}</p>`).join('');
+        }
+
+        // Function to search videos
+        function searchVideos() {
+            let query = document.getElementById('searchInput').value.toLowerCase();
+            if (query) {
+                alert(`Searching for: ${query}`);
+            }
+        }
+
+        // Function to toggle dark/light theme
+function toggleTheme() {
+    isDarkTheme = !isDarkTheme;
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+
+    // Update theme toggle button text/icon based on the current theme
+    const toggleButton = document.getElementById('toggleTheme');
+    if (isDarkTheme) {
+        toggleButton.textContent = '🌞 Light Mode';
+    } else {
+        toggleButton.textContent = '🌙 Dark Mode';
+    }
+}
+
+
+        // Follow/Unfollow user functionality
+        function followUser(username) {
+            if (!followedUsers.includes(username)) {
+                followedUsers.push(username);
+                updateFollowedUsers();
+            }
+        }
+
+        // Update followed users list
+        function updateFollowedUsers() {
+            const followedUsersList = document.getElementById('followedUsersList');
+            followedUsersList.innerHTML = followedUsers.join(', ');
+        }
+
+        // Show profile, feed, and upload sections
+        function showProfile() {
+            document.getElementById('profilePage').style.display = 'block';
+            document.getElementById('videoFeed').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'none';
+            updateMyVideos();
+        }
+
+        function showFeed() {
+            document.getElementById('profilePage').style.display = 'none';
+            document.getElementById('videoFeed').style.display = 'flex';
+            document.getElementById('uploadForm').style.display = 'none';
+        }
+
+        function showUploadForm() {
+            document.getElementById('profilePage').style.display = 'none';
+            document.getElementById('videoFeed').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'flex';
+        }
+
+        // Show notifications
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.classList.add('notification');
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        // Navbar Links
+        document.getElementById('homeLink').addEventListener('click', showFeed);
+        document.getElementById('profileLink').addEventListener('click', showProfile);
+        document.getElementById('uploadLink').addEventListener('click', showUploadForm);
+
+        // Search Bar Toggle
+        document.getElementById('searchLink').addEventListener('click', function() {
+            if (searchBarVisible) {
+                document.getElementById('searchBar').style.display = 'none';
+                searchBarVisible = false;
+            } else {
+                document.getElementById('searchBar').style.display = 'block';
+                searchBarVisible = true;
+            }
+        });
+
+        document.getElementById('searchButton').addEventListener('click', searchVideos);
+
+        // Dark/Light Theme Toggle
+        document.getElementById('toggleTheme').addEventListener('click', toggleTheme);
+
+        // Edit Profile Functionality
+        document.getElementById('editProfileButton').addEventListener('click', function() {
+            document.getElementById('profileForm').style.display = 'block';
+            document.getElementById('editProfileButton').style.display = 'none';
+        });
+
+        document.getElementById('saveProfileButton').addEventListener('click', function() {
+            let newUsername = document.getElementById('newUsername').value;
+            let newBio = document.getElementById('newBio').value;
+
+            if (newUsername && newBio) {
+                document.getElementById('username').textContent = 'Username: ' + newUsername;
+                document.getElementById('bio').textContent = 'Bio: ' + newBio;
+                document.getElementById('profileForm').style.display = 'none';
+                document.getElementById('editProfileButton').style.display = 'block';
+            }
+        });
+
+        document.getElementById('cancelEditButton').addEventListener('click', function() {
+            document.getElementById('profileForm').style.display = 'none';
+            document.getElementById('editProfileButton').style.display = 'block';
+        });
+
+        // Upload Video Functionality
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            const videoFile = document.getElementById('videoFile').files[0];
+
+            if (videoFile) {
+                // For simplicity, using a temporary YouTube URL to represent uploaded video
+                const videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+                userVideos.push(videoUrl);
+                updateMyVideos();  // Refresh My Videos section
+                showFeed();  // Go back to the video feed
+            }
+        });
+
+        // Load the initial set of videos
+        loadNewVideo();
+    </script>
+
+</body>
+</html>

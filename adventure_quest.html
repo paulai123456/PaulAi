@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Quest</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #181818;
+            color: #ddd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-image: linear-gradient(135deg, #2f2f2f 0%, #4c4c4c 100%);
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            font-size: 36px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .game-area {
+            width: 80%;
+            height: 70%;
+            background-color: #333;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            border: 5px solid #444;
+        }
+
+        .character {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-image: url('https://via.placeholder.com/60'); /* Replace with actual character image */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: top 0.1s ease, left 0.1s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .enemy {
+    position: absolute;
+    width: 60px;  /* Smaller size for the enemy */
+    height: 60px;  /* Smaller size for the enemy */
+    background-color: red;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); /* Glowing effect */
+}
+
+.boss {
+    position: absolute;
+    width: 150px;  /* Increased boss size */
+    height: 150px;  /* Increased boss size */
+    background-color: red;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8); /* Glowing effect */
+}
+
+
+        .collectible, .magic-bow {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #FFD700; /* Gold color */
+            border: 5px solid #FF6347; /* Red border to make it stand out */
+            box-sizing: border-box;
+        }
+
+        .inventory {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            color: white;
+            border-radius: 8px;
+            width: 150px;
+        }
+
+        .inventory h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .inventory-items {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .inventory-item {
+            background-color: #555;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .health-bar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            width: 200px;
+            height: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .health-bar-inner {
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            border-radius: 10px;
+        }
+
+        .info {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes moveEnemy {
+            0% { top: 10%; left: 10%; }
+            50% { top: 80%; left: 80%; }
+            100% { top: 10%; left: 10%; }
+        }
+        
+        @keyframes moveBoss {
+            0% { top: 20%; left: 20%; }
+            50% { top: 60%; left: 60%; }
+            100% { top: 20%; left: 20%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Adventure Quest
+</header>
+
+<div class="game-area">
+    <div class="health-bar">
+        <div class="health-bar-inner" id="health-bar-inner"></div>
+    </div>
+    <div class="info">
+        <p>Use arrow keys to move, Space to attack!</p>
+    </div>
+    <div class="character" id="character"></div>
+    <div class="enemy" id="enemy"></div>
+    <div class="boss" id="boss"></div>
+    <div class="collectible" id="collectible"></div>
+    <div class="magic-bow" id="magic-bow"></div>
+</div>
+
+<div class="inventory" id="inventory">
+    <h3>Inventory</h3>
+    <div class="inventory-items" id="inventory-items"></div>
+</div>
+
+<a href="/games" class="back-button">Back to Game Menu</a>
+
+<script>
+    // Game state variables
+    let x = 50, y = 50; // Starting position
+    let health = 100;
+    let collectibleCollected = false;
+    let attacking = false;
+    let holdingSword = false; // Track if sword is held
+    let holdingBow = false; // Track if magic bow is held
+    let inventory = []; // Array to store collected items
+    let bossVisible = false; // Boss visibility flag
+
+    // Get elements
+    const character = document.getElementById('character');
+    const enemy = document.getElementById('enemy');
+    const boss = document.getElementById('boss');
+    const collectible = document.getElementById('collectible');
+    const magicBow = document.getElementById('magic-bow');
+    const healthBarInner = document.getElementById('health-bar-inner');
+    const inventoryItemsContainer = document.getElementById('inventory-items');
+
+    // Function to move the character
+    function moveCharacter(e) {
+        const gameArea = document.querySelector('.game-area');
+        const areaWidth = gameArea.offsetWidth;
+        const areaHeight = gameArea.offsetHeight;
+
+        const speed = 10;
+
+        if (e.key === 'ArrowUp' && y > 0) {
+            y -= speed;
+        } else if (e.key === 'ArrowDown' && y < areaHeight - 60) {
+            y += speed;
+        } else if (e.key === 'ArrowLeft' && x > 0) {
+            x -= speed;
+        } else if (e.key === 'ArrowRight' && x < areaWidth - 60) {
+            x += speed;
+        }
+
+        // Update position
+        character.style.top = `${y}%`;
+        character.style.left = `${x}%`;
+
+        // Collect item
+        if (!collectibleCollected && isColliding(character, collectible)) {
+            collectibleCollected = true;
+            alert("You collected a Sword!");
+            inventory.push("Sword"); // Add sword to inventory
+            updateInventory();
+        }
+
+        // Collect magic bow
+        if (!holdingBow && isColliding(character, magicBow)) {
+            holdingBow = true;
+            alert("You collected the Magic Bow!");
+            inventory.push("Magic Bow"); // Add magic bow to inventory
+            updateInventory();
+        }
+
+        // Check if player gets hit by enemy (collision)
+        if (isColliding(character, enemy)) {
+            if (!attacking) { // Only take damage if not attacking
+                health -= holdingSword ? 5 : 10; // Less damage if holding sword
+                updateHealthBar();
+                if (health <= 0) {
+                    alert("Game Over!");
+                    location.reload(); // Restart the game if health reaches 0
+                }
+            }
+        }
+
+        // Attack enemy or boss
+        if (attacking) {
+            if (isColliding(character, enemy)) {
+                alert("You attacked the enemy!");
+                enemy.style.display = 'none'; // Hide enemy after being attacked
+                setTimeout(() => {
+                    enemy.style.display = 'block'; // Respawn enemy
+                    moveEnemy();
+                }, 3000);
+            }
+
+            if (isColliding(character, boss)) {
+                alert("You attacked the boss!");
+                const damage = holdingBow ? 30 : 20;
+                health -= damage; // Reduce health when boss is attacked
+                boss.style.display = 'none'; // Hide boss after being attacked
+                setTimeout(() => {
+                    boss.style.display = 'block'; // Respawn boss
+                    moveBoss();
+                }, 5000);
+            }
+        }
+    }
+
+    // Check if two elements are colliding
+    function isColliding(element1, element2) {
+        const rect1 = element1.getBoundingClientRect();
+        const rect2 = element2.getBoundingClientRect();
+        return !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+    }
+
+    // Update health bar
+    function updateHealthBar() {
+        healthBarInner.style.width = `${health}%`;
+    }
+
+    // Update inventory display
+    function updateInventory() {
+        inventoryItemsContainer.innerHTML = '';
+        inventory.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.textContent = item;
+            itemDiv.classList.add('inventory-item');
+            inventoryItemsContainer.appendChild(itemDiv);
+        });
+    }
+
+    // Handle attacks (Space bar)
+    function attackEnemy(e) {
+        if (e.key === ' ') {
+            attacking = true;
+            setTimeout(() => {
+                attacking = false;
+            }, 300); // Attack lasts for a short duration
+        }
+    }
+
+    // Boss movement and appearance
+    function moveBoss() {
+        if (bossVisible) {
+            const randomTop = Math.random() * 80;
+            const randomLeft = Math.random() * 80;
+            boss.style.top = `${randomTop}%`;
+            boss.style.left = `${randomLeft}%`;
+        }
+    }
+
+    // Enemy movement
+    function moveEnemy() {
+        const randomTop = Math.random() * 80;
+        const randomLeft = Math.random() * 80;
+        enemy.style.top = `${randomTop}%`;
+        enemy.style.left = `${randomLeft}%`;
+    }
+
+    // Event listeners
+    window.addEventListener('keydown', moveCharacter);
+    window.addEventListener('keydown', attackEnemy);
+
+    // Start the game by spawning collectibles
+    setInterval(() => moveEnemy(), 2000); // Move enemy every 2 seconds
+    setInterval(() => moveBoss(), 5000); // Move boss every 5 seconds
+
+    // Show boss after certain time or condition (e.g., defeating a regular enemy)
+    setTimeout(() => {
+        bossVisible = true;
+        boss.style.display = 'block';
+    }, 5000); // Show boss after 5 seconds
+</script>
+
+</body>
+</html>

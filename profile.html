@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ username }}'s Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>{{ username }}'s Profile</h2>
+            <p class="profile-subheader">Manage your profile information here.</p>
+        </div>
+
+        <!-- Display Profile Picture if available -->
+        <div class="profile-picture">
+            {% if profile_picture %}
+                <img src="{{ profile_picture }}" alt="Profile Picture" style="width:150px;height:150px;border-radius:50%;">
+            {% else %}
+                <p>No profile picture uploaded.</p>
+            {% endif %}
+        </div>
+
+        <form action="/update_profile" method="POST" class="profile-form" enctype="multipart/form-data">
+            <!-- Username Field -->
+            <div class="profile-field">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="{{ username }}" required>
+            </div>
+
+            <!-- Bio Field -->
+            <div class="profile-field">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" required>{{ bio }}</textarea>
+            </div>
+
+            <!-- Profile Picture Field -->
+            <div class="profile-field">
+                <label for="profile_picture">Profile Picture:</label>
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            </div>
+
+            <!-- Update Button -->
+            <div class="profile-button">
+                <button type="submit">Update Profile</button>
+            </div>
+        </form>
+
+        <!-- Button to return to chatbot -->
+        <div class="return-button">
+            <a href="{{ url_for('chatbot') }}"><button>Return to Chat</button></a>
+        </div>
+    </div>
+</body>
+</html>

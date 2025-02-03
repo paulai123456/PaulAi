@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Careers - Join Our AI Team</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #eef2f7;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #4caf50, #2e7d32);
+      color: white;
+      text-align: center;
+      padding: 30px 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+    .home-button {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 10px 20px;
+      background: white;
+      color: #4caf50;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    .home-button:hover {
+      background: #e8f5e9;
+      transform: translateY(-2px);
+    }
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #2e7d32;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      margin-bottom: 25px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background: #f9f9f9;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    .btn-apply {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .btn-apply:hover {
+      background: #388e3c;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+    .modal-content h3 {
+      color: #4caf50;
+      font-size: 1.8rem;
+    }
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .modal-content textarea {
+      resize: none;
+    }
+    .modal-content button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .modal-content button:hover {
+      background: #388e3c;
+    }
+    .close-modal {
+      background: #d32f2f;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      background: #b71c1c;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 30px;
+    }
+    footer a {
+      color: #4caf50;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    footer a:hover {
+      color: #81c784;
+    }
+    footer p {
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 50%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    /* Show More / Show Less button styling */
+    .show-more-btn {
+      display: block;
+      margin-top: 15px;
+      color: #4caf50;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="home-button">Home</a>
+    <h1>Join Our AI Team</h1>
+    <p>Empowering the future with cutting-edge AI solutions</p>
+  </header>
+
+  <div class="search-bar" style="text-align:center; margin-bottom: 20px;">
+    <input type="text" id="searchInput" onkeyup="filterJobs()" placeholder="Search for jobs..." style="padding: 10px; width: 50%; border-radius: 8px; border: 1px solid #ccc;">
+  </div>
+
+  <div class="container">
+    <h2>Open ICT Positions</h2>
+    <ul id="jobList">
+      <li>
+        <h3>Software Engineer - AI Systems</h3>
+        <p>Design and develop scalable AI-driven applications. Work with a team of skilled engineers to create impactful solutions. <span class="more-text" style="display: none;">In-depth knowledge of AI models and frameworks will be beneficial. Collaborate closely with cross-functional teams to create best-in-class products.</span></p>
+        <a href="javascript:void(0);" class="show-more-btn" onclick="toggleDescription(this)">Show More</a>
+        <p><strong>Location:</strong> Remote</p>
+        <ul>
+          <li>Bachelor's degree in Computer Science or related field</li>
+          <li>Proven experience in software engineering</li>
+          <li>Strong knowledge of AI and machine learning techniques</li>
+        </ul>
+        <button class="btn-apply" onclick="openModal('Software Engineer - AI Systems')">Apply Now</button>
+      </li>
+      <li>
+        <h3>Backend Developer - Cloud Infrastructure</h3>
+        <p>Build and maintain robust backend systems and APIs. Ensure high-performance and scalability across the cloud infrastructure. <span class="more-text" style="display: none;">Experience with cloud technologies and optimizing performance at scale is essential for this role.</span></p>
+        <a href="javascript:void(0);" class="show-more-btn" onclick="toggleDescription(this)">Show More</a>
+        <p><strong>Location:</strong> Hybrid</p>
+        <ul>
+          <li>Experience with cloud platforms such as AWS, Azure, or GCP</li>
+          <li>Proficiency in backend programming languages like Python, Java, or Go</li>
+          <li>Experience with API design and development</li>
+        </ul>
+        <button class="btn-apply" onclick="openModal('Backend Developer - Cloud Infrastructure')">Apply Now</button>
+      </li>
+      <li>
+        <h3>Data Engineer - Big Data Solutions</h3>
+        <p>Design and implement data pipelines to handle large datasets efficiently. Collaborate with data scientists to optimize data flow. <span class="more-text" style="display: none;">Strong experience with big data tools like Hadoop and Spark is preferred.</span></p>
+        <a href="javascript:void(0);" class="show-more-btn" onclick="toggleDescription(this)">Show More</a>
+        <p><strong>Location:</strong> Office-based</p>
+        <ul>
+          <li>Experience in building and optimizing data pipelines</li>
+          <li>Proficiency with databases and big data tools</li>
+          <li>Knowledge of data warehousing and ETL processes</li>
+        </ul>
+        <button class="btn-apply" onclick="openModal('Data Engineer - Big Data Solutions')">Apply Now</button>
+      </li>
+      <li>
+        <h3>Frontend Developer - Web Applications</h3>
+        <p>Build modern, responsive web applications and user interfaces. Collaborate with UX/UI designers to implement seamless user experiences. <span class="more-text" style="display: none;">Experience with front-end frameworks like React or Angular is essential for this role.</span></p>
+        <a href="javascript:void(0);" class="show-more-btn" onclick="toggleDescription(this)">Show More</a>
+        <p><strong>Location:</strong> Remote</p>
+        <ul>
+          <li>Proficiency in HTML, CSS, JavaScript, and front-end frameworks</li>
+          <li>Experience with responsive design and mobile-first development</li>
+          <li>Familiarity with version control systems (e.g., Git)</li>
+        </ul>
+        <button class="btn-apply" onclick="openModal('Frontend Developer - Web Applications')">Apply Now</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Modal -->
+  <div id="applyModal" class="modal">
+    <div class="modal-content">
+      <h3>Apply for <span id="jobTitle"></span></h3>
+      <form action="/submit-application" method="POST">
+        <input type="hidden" name="job_title" id="jobTitleInput" />
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="5" placeholder="Why are you a great fit?" required></textarea>
+        <button type="submit">Submit Application</button>
+        <button type="button" class="close-modal" onclick="closeModal()">Close</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 AI Solutions Inc. All rights reserved.</p>
+    <p>
+      <a href="/privacy-terms">Privacy Policy</a> | 
+      <a href="/privacy-terms">Terms of Service</a> | 
+      <a href="/contact">Contact Us</a>
+    </p>
+  </footer>
+
+  <script>
+    const modal = document.getElementById('applyModal');
+    const jobTitle = document.getElementById('jobTitle');
+    const jobTitleInput = document.getElementById('jobTitleInput');
+
+    function openModal(job) {
+      jobTitle.textContent = job;
+      jobTitleInput.value = job;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function toggleDescription(button) {
+      const moreText = button.previousElementSibling.querySelector('.more-text');
+      if (moreText.style.display === 'none') {
+        moreText.style.display = 'inline';
+        button.textContent = 'Show Less';
+      } else {
+        moreText.style.display = 'none';
+        button.textContent = 'Show More';
+      }
+    }
+
+    function filterJobs() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const jobList = document.getElementById('jobList');
+      const jobs = jobList.getElementsByTagName('li');
+      
+      for (let i = 0; i < jobs.length; i++) {
+        const title = jobs[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
+        if (title.includes(input)) {
+          jobs[i].style.display = '';
+        } else {
+          jobs[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

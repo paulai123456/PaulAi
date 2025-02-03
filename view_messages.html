@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Contact Messages</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .messages-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .message {
+            border-bottom: 1px solid #ccc;
+            padding: 15px;
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .message p {
+            margin: 10px 0;
+        }
+
+        .message .email {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Contact Messages</h1>
+</header>
+
+<div class="messages-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                <h3>{{ message.name }}</h3>
+                <p class="email">{{ message.email }}</p>
+                <p>{{ message.message }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No contact messages yet.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>

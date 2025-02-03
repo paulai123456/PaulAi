@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - AI Website</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to your existing stylesheet -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f0f0; /* Light gray background */
+            font-family: 'Arial', sans-serif;
+            color: #333; /* Dark gray text */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333; /* Dark gray header */
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+            color: #fff; /* White text */
+            letter-spacing: 2px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff; /* White text */
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #444; /* Medium gray buttons */
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #666; /* Lighter gray hover effect */
+        }
+
+        .faq-container {
+            width: 80%;
+            margin: 40px auto;
+            background-color: #fff; /* White background for FAQ container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333; /* Dark gray text */
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: #f9f9f9; /* Very light gray background for FAQ items */
+            border-radius: 8px;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: scale(1.05); /* Slight scale effect on hover */
+        }
+
+        .faq-item h3 {
+            cursor: pointer;
+            font-size: 20px;
+            background-color: #555; /* Darker gray for question background */
+            padding: 12px;
+            color: #fff; /* White text */
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .faq-item h3:hover {
+            background-color: #666; /* Slightly lighter gray on hover */
+        }
+
+        .faq-item p {
+            display: none;
+            padding: 12px;
+            background-color: #f1f1f1; /* Light gray text background */
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .faq-item.open p {
+            display: block;
+        }
+
+        .faq-item .btn {
+            margin-top: 10px;
+            background-color: #444;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-item .btn:hover {
+            background-color: #666;
+        }
+
+        footer {
+            background-color: #333; /* Dark gray footer */
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FAQ - AI Website</h1>
+        <div class="navbar">
+            <a href="/">Home</a>
+            <a href="/contact">Contact Us</a>
+        </div>
+    </header>
+
+    <div class="faq-container">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <h3>What is this AI website about?</h3>
+            <p>Our AI website offers innovative tools and resources designed to help you understand and build with AI, from chatbot development to data analysis.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How can I use the AI chatbot?</h3>
+            <p>Simply enter a question or prompt in the chat box, and the AI will respond. It's as easy as chatting with a friend!</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do I need to pay for AI features?</h3>
+            <p>Basic features are free to use. However, premium tools and functionalities require a subscription to unlock.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I contribute to the development?</h3>
+            <p>Absolutely! We welcome contributions from developers. Head over to our GitHub repository for more details on how you can get involved.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How can I get customer support?</h3>
+            <p>If you need help, please visit our <a href="/customersupport" class="btn">Customer Support</a> page for assistance.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 AI Website | All rights reserved.</p>
+    </footer>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('h3');
+            question.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>

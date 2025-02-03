@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download My App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures the footer stays at the bottom */
+            font-family: Arial, sans-serif;
+            background-color: #222222;
+            color: #f7f7f7;
+        }
+
+        header {
+            background-color: #333333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .container {
+            flex-grow: 1; /* Makes the content area grow to take up available space */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 24px;
+            color: #ddd;
+        }
+
+        .card {
+            background-color: #444444;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #f1f1f1;
+            font-size: 30px;
+        }
+
+        .card p {
+            color: #bbb;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .card a {
+            display: inline-block;
+            background-color: #555555;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #007bff;
+            transform: translateY(-2px);
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background-color: #646464;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: #333333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .card h2 {
+                font-size: 24px;
+            }
+
+            .card p {
+                font-size: 16px;
+            }
+
+            .card a {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 22px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            .card p {
+                font-size: 14px;
+            }
+
+            .card a {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Download Our App</h1>
+</header>
+
+<div class="container">
+    <div class="welcome-message">
+        <p>Get the app version of our website for a smoother experience on your device!</p>
+    </div>
+
+    <!-- Download Options Card -->
+    <div class="card">
+        <h2>Download for Android</h2>
+        <p>Click below to download the Android app and enjoy the experience!</p>
+        <a href="path-to-your-app.apk" download class="btn">Download for Android</a>
+    </div>
+
+    <div class="card">
+        <h2>Download for iOS</h2>
+        <p>Get the app on the Apple App Store.</p>
+        <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="btn">Download for iOS</a>
+    </div>
+
+    <!-- QR Code Section -->
+    <div class="card">
+        <h2>Or scan this QR code</h2>
+        <p>Use your mobile device to scan and download the app directly.</p>
+        <img src="path-to-qr-code.png" alt="QR Code" style="width: 200px; border-radius: 8px;">
+    </div>
+
+    <!-- Go Back Home Button -->
+    <div class="btn-container">
+        <a href="/" class="btn">Go Back Home</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Your Website. <a href="/about">About Us</a> | <a href="/contact">Contact</a></p>
+</footer>
+
+</body>
+</html>

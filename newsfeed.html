@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Newsfeed</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* News Container Styling */
+        .news-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .news-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #424242;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* News Item Styling */
+        .news-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-title {
+            font-size: 22px;
+            color: #333;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .news-title a {
+            text-decoration: none;
+            color: #0056b3;
+            transition: color 0.3s ease;
+        }
+
+        .news-title a:hover {
+            color: #ff6f61;
+            text-decoration: underline;
+        }
+
+        .news-description {
+            margin: 12px 0;
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .news-source {
+            font-size: 14px;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Refresh Button Styling */
+        .refresh-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: #ff6f61;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Latest AI News</h1>
+    </header>
+    <div class="news-container">
+        <h2>Stay Updated with the Latest in AI</h2>
+        
+        <!-- News articles will be dynamically inserted here -->
+        {% if articles %}
+            {% for article in articles %}
+                <div class="news-item">
+                    <h3 class="news-title"><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                    <p class="news-description">{{ article.description or 'No description available.' }}</p>
+                    <p class="news-source">Source: {{ article.source.name }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No news available at the moment.</p>
+        {% endif %}
+        
+        <!-- Refresh Button -->
+        <a href="{{ url_for('newsfeed') }}" class="refresh-btn">Refresh News</a>
+    </div>
+    <footer>
+        <p>&copy; 2024 AI Chatbot. <a href="/">Back to Home</a></p>
+    </footer>
+</body>
+</html>

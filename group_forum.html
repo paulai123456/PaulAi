@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Forum</title>
+    <style>
+        /* General Container Styling */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Header Styling */
+.container h1 {
+    text-align: center;
+    color: #007bff;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Form Container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label Styling */
+.form-group label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* Input and Select Styling */
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select,
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    background-color: #f7f7f7;
+    color: #333;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.form-group input[type="file"]:focus {
+    background-color: #fff;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+/* Textarea Styling */
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Button Styling */
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Thread and Post Styles */
+.thread {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin: 15px 0;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thread h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.thread p {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Thread Button */
+.thread-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.thread-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    .thread h4 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group select {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a Group Post</h1>
+        <form action="/create_post" method="POST" enctype="multipart/form-data" class="form-container">
+            <div class="form-group">
+                <label for="group_name">Select Group:</label>
+                <select id="group_name" name="group_name" required>
+                    <option value="" disabled selected>Select a group</option>
+                    <option value="AI Enthusiasts">AI Enthusiasts</option>
+                    <option value="Web Developers">Web Developers</option>
+                    <option value="General">General</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="post_title">Post Title:</label>
+                <input type="text" id="post_title" name="post_title" placeholder="Enter a title for your post" required>
+            </div>
+            <div class="form-group">
+                <label for="post_content">Post Content:</label>
+                <textarea id="post_content" name="post_content" placeholder="Write your post here..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="attachment">Attach a File (optional):</label>
+                <input type="file" id="attachment" name="attachment">
+            </div>
+            <button type="submit">Submit Post</button>
+        </form>
+    </div>
+</body>
+</html>

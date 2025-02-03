@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Chatbot Persona</title>
+    <style>
+        /* Add basic styles for layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #chat-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+        .persona-selector {
+            margin-top: 10px;
+        }
+        #send-btn {
+            padding: 10px 15px;
+            margin-top: 10px;
+        }
+        .switch-persona-btn {
+            margin-top: 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choose Your Chatbot Persona</h1>
+
+    <div>
+        <div id="chat-box">
+            <!-- Chat messages will appear here -->
+        </div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-btn">Send</button>
+    </div>
+
+    <div class="persona-selector">
+        <label for="persona-select">Choose your chatbot persona:</label>
+        <select id="persona-select">
+            <option value="friendly">Friendly</option>
+            <option value="professional">Professional</option>
+            <option value="humorous">Humorous</option>
+        </select>
+    </div>
+
+    <button class="switch-persona-btn" onclick="switchPersona()">Switch Persona</button>
+
+    <script>
+        let currentPersona = 'friendly'; // Default persona
+
+        // Handle persona change
+        document.getElementById('persona-select').addEventListener('change', function() {
+            currentPersona = this.value;
+        });
+
+        // Handle sending message to the chatbot
+        document.getElementById('send-btn').addEventListener('click', function() {
+            const userMessage = document.getElementById('user-input').value;
+            if (userMessage) {
+                sendMessageToBackend(userMessage);
+                document.getElementById('user-input').value = '';
+            }
+        });
+
+        // Function to send message to the backend
+        function sendMessageToBackend(message) {
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display chatbot's response in the chat box
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML += `<p><strong>${data.response}</strong></p>`;
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+            });
+        }
+
+        // Function to switch the chatbot persona
+        function switchPersona() {
+            fetch('/set_persona', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ persona: currentPersona })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the chat box with the new persona's greeting
+                updateChat();
+            });
+        }
+
+        // Function to update the chat with the selected persona's greeting
+        function updateChat() {
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: 'help' }) // Send a dummy message to get the greeting
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the persona greeting
+                const chatBox = document.getElementById('chat-box');
+                chatBox.innerHTML = `<p><strong>${data.response}</strong></p>`;
+            });
+        }
+
+        // Initial greeting when page loads
+        window.onload = updateChat;
+    </script>
+</body>
+</html>

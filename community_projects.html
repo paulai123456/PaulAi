@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Projects</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure full height of the viewport */
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    header {
+      text-align: center; /* Center the entire header */
+      padding: 20px;
+      background-color: #3498db;
+      color: white;
+    }
+
+    /* Header Buttons */
+    header nav {
+      margin-top: 20px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: white;
+      margin: 0 15px;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #2980b9;
+    }
+
+    header nav a:hover {
+      background-color: #1f6692;
+    }
+
+    /* Search Bar */
+    .search-container {
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .search-container input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      flex-grow: 1; /* Ensure the content area grows to fill the available space */
+    }
+
+    /* Project Cards */
+    .project-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+    }
+
+    .project-card a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    /* Member Cards */
+    .member-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .member-card h4 {
+      margin-top: 0;
+    }
+
+    /* Form Section */
+    .form-section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .form-section input, .form-section textarea, .form-section button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .form-section button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .form-section button:hover {
+      background-color: #2980b9;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      width: 100%;
+    }
+
+    footer a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: #2980b9;
+    }
+
+    .dark-mode {
+      background-color: #333;
+      color: white;
+    }
+
+    .dark-mode .project-card {
+      background-color: #444;
+      border-color: #666;
+    }
+
+    .dark-mode .form-section {
+      background-color: #444;
+      border-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Community Projects</h1>
+    <p>Submit and explore ongoing AI projects!</p>
+
+    <!-- Navigation Buttons -->
+    <nav>
+      <a href="/">Home</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Dark Mode Toggle Button -->
+  <button class="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Search projects..." oninput="searchProjects()">
+  </div>
+
+  <div class="container">
+    <!-- Ongoing Projects Section -->
+    <section>
+      <h2>Ongoing Projects</h2>
+      <div id="ongoing-projects">
+        <!-- Dynamic content from the server will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Submit Your Project Section -->
+    <section class="form-section">
+      <h2>Submit Your Project</h2>
+      <form id="project-form">
+        <label for="title">Project Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter your project title" required>
+
+        <label for="description">Project Description</label>
+        <textarea id="description" name="description" placeholder="Describe your project" required></textarea>
+
+        <label for="link">GitHub/Website Link</label>
+        <input type="url" id="link" name="link" placeholder="Enter a link to your project" required>
+
+        <button type="submit">Submit Project</button>
+      </form>
+    </section>
+
+    <!-- Member Section -->
+    <section>
+      <h2>Community Members</h2>
+      <div id="members-list">
+        <!-- Dynamic member content from the server will be loaded here -->
+      </div>
+      <section class="form-section">
+        <h2>Join the Community</h2>
+        <form id="join-form">
+          <label for="member-name">Your Name</label>
+          <input type="text" id="member-name" name="member-name" placeholder="Enter your name" required>
+
+          <label for="member-email">Your Email (Optional)</label>
+          <input type="email" id="member-email" name="member-email" placeholder="Enter your email">
+
+          <label for="member-role">Your Role</label>
+          <input type="text" id="member-role" name="member-role" placeholder="Enter your role (e.g., Developer, Designer)" required>
+
+          <button type="submit">Join Community</button>
+        </form>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    // Dark Mode Toggle Function
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Fetch Ongoing Projects from Backend
+    async function fetchProjects() {
+      const response = await fetch('/get_projects');
+      if (response.ok) {
+        const data = await response.json();
+        const container = document.getElementById('ongoing-projects');
+        container.innerHTML = ''; // Clear previous content
+
+        if (data.ongoing.length === 0) {
+          container.innerHTML = '<p>No projects submitted yet. Be the first to submit!</p>';
+        } else {
+          data.ongoing.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+              <h3>${project.title}</h3>
+              <p>${project.description}</p>
+              <a href="${project.link}" target="_blank">View Project</a>
+            `;
+            container.appendChild(card);
+          });
+        }
+      } else {
+        console.error('Failed to fetch projects');
+      }
+    }
+
+    // Fetch Members from Backend
+    async function fetchMembers() {
+      const response = await fetch('/get_members');
+      if (response.ok) {
+        const data = await response.json();
+        const container = document.getElementById('members-list');
+        container.innerHTML = ''; // Clear previous content
+
+        if (data.members.length === 0) {
+          container.innerHTML = '<p>No members added yet. Be the first to join!</p>';
+        } else {
+          data.members.forEach(member => {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            card.innerHTML = `
+              <h4>${member.name}</h4>
+              <p>Email: ${member.email ? member.email : 'Not provided'}</p>
+              <p>Role: ${member.role}</p>
+            `;
+            container.appendChild(card);
+          });
+        }
+      } else {
+        console.error('Failed to fetch members');
+      }
+    }
+
+    // Handle Project Form Submission
+    document.getElementById('project-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const link = document.getElementById('link').value;
+
+      const response = await fetch('/submit_project', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description, link })
+      });
+
+      if (response.ok) {
+        alert('Project submitted successfully!');
+        fetchProjects(); // Refresh the list of projects
+      } else {
+        alert('Failed to submit project');
+      }
+    });
+
+    // Handle Join Community Form Submission
+    document.getElementById('join-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('member-name').value;
+      const email = document.getElementById('member-email').value || null;
+      const role = document.getElementById('member-role').value;
+
+      const response = await fetch('/add_member', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, role })
+      });
+
+      if (response.ok) {
+        alert('Welcome to the community!');
+        fetchMembers(); // Refresh the list of members
+      } else {
+        alert('Failed to join the community');
+      }
+    });
+
+    // Search Functionality
+    function searchProjects() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const projects = document.querySelectorAll('.project-card');
+
+      projects.forEach(project => {
+        const title = project.querySelector('h3').textContent.toLowerCase();
+        if (title.includes(query)) {
+          project.style.display = 'block';
+        } else {
+          project.style.display = 'none';
+        }
+      });
+    }
+
+    // Fetch data initially
+    fetchProjects();
+    fetchMembers();
+  </script>
+
+  <footer>
+    <p>&copy; 2024 AI Community | <a href="/about">About Us</a></p>
+  </footer>
+</body>
+</html>

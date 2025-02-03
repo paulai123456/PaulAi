@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Donation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin: 0;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #28a745;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Hidden elements initially */
+        .payment-info {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Make a Donation</h1>
+</header>
+
+<div class="container">
+    <h2>Your Support Matters!</h2>
+    <p>Please fill out the form below to make a donation. Your contribution will help us make a difference!</p>
+
+    <form action="/process_donation" method="POST">
+        <!-- Donation Amount -->
+        <label for="donation_amount">Donation Amount (USD):</label>
+        <input type="number" id="donation_amount" name="donation_amount" required min="1">
+
+        <!-- Payment Method -->
+        <label for="payment_method">Payment Method:</label>
+        <select id="payment_method" name="payment_method" required onchange="showPaymentInfo()">
+            <option value="">Select a Payment Method</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+        </select>
+
+        <!-- Credit Card Info -->
+        <div id="credit_card_info" class="payment-info">
+            <label for="credit_card_number">Credit Card Number:</label>
+            <input type="text" id="credit_card_number" name="credit_card_number" placeholder="Enter Credit Card Number">
+
+            <label for="expiry_date">Expiry Date:</label>
+            <input type="month" id="expiry_date" name="expiry_date">
+            
+            <label for="cvv">CVV:</label>
+            <input type="text" id="cvv" name="cvv" placeholder="Enter CVV">
+        </div>
+
+        <!-- PayPal Info -->
+        <div id="paypal_info" class="payment-info">
+            <label for="paypal_email">PayPal Email:</label>
+            <input type="email" id="paypal_email" name="paypal_email" placeholder="Enter PayPal Email">
+        </div>
+
+        <!-- Bank Transfer Info -->
+        <div id="bank_transfer_info" class="payment-info">
+            <label for="bank_account">Bank Account Number:</label>
+            <input type="text" id="bank_account" name="bank_account" placeholder="Enter Bank Account Number">
+            
+            <label for="bank_name">Bank Name:</label>
+            <input type="text" id="bank_name" name="bank_name" placeholder="Enter Bank Name">
+        </div>
+
+        <!-- User Information -->
+        <label for="donor_name">Your Name:</label>
+        <input type="text" id="donor_name" name="donor_name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <!-- Submit Button -->
+        <button type="submit">Proceed to Payment</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 AI Chatbot. Thank you for your donation!</p>
+</footer>
+
+<script>
+    // Function to show/hide payment info based on selected payment method
+    function showPaymentInfo() {
+        const paymentMethod = document.getElementById('payment_method').value;
+        
+        // Hide all payment info sections
+        document.getElementById('credit_card_info').style.display = 'none';
+        document.getElementById('paypal_info').style.display = 'none';
+        document.getElementById('bank_transfer_info').style.display = 'none';
+        
+        // Show the appropriate section based on the selected payment method
+        if (paymentMethod === 'Credit Card') {
+            document.getElementById('credit_card_info').style.display = 'block';
+        } else if (paymentMethod === 'PayPal') {
+            document.getElementById('paypal_info').style.display = 'block';
+        } else if (paymentMethod === 'Bank Transfer') {
+            document.getElementById('bank_transfer_info').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

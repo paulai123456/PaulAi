@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Full Page Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #1e1e2f, #121214);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Ensure content starts from the top */
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .about-container {
+            width: 100%;
+            max-width: 1100px;
+            background-color: rgba(34, 34, 34, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            box-sizing: border-box;
+            min-height: 100vh; /* Ensures the container takes the full viewport height */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .back-to-home-btn {
+            font-size: 14px;
+            color: #00bcd4;
+            background-color: transparent;
+            text-decoration: none;
+            border: 2px solid #00bcd4;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .back-to-home-btn:hover {
+            background-color: #00bcd4;
+            color: #121214;
+        }
+
+        .about-content h2 {
+            font-size: 28px;
+            border-bottom: 2px solid #00bcd4;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .about-content ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .about-content ul li {
+            position: relative;
+            margin: 12px 0;
+            padding-left: 30px;
+        }
+
+        .about-content ul li::before {
+            content: "•";
+            color: #00bcd4;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .upgrade-section {
+            background: #16161d;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            border-left: 4px solid #00bcd4;
+        }
+
+        .upgrade-section h3 {
+            font-size: 20px;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-button {
+            padding: 10px 20px;
+            background: #00bcd4;
+            color: #121214;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-button:hover {
+            background-color: #fff;
+            color: #00bcd4;
+        }
+
+        .email a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .email a:hover {
+            color: #fff;
+        }
+
+        /* Community Section */
+        .community-section {
+            background: #2b2b3a;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .community-section h3 {
+            font-size: 20px;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .community-section p {
+            margin-bottom: 10px;
+        }
+
+        .join-button {
+            padding: 10px 20px;
+            background: #00bcd4;
+            color: #121214;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .join-button:hover {
+            background-color: #fff;
+            color: #00bcd4;
+        }
+
+        /* Mobile-Responsive Styles */
+        @media (max-width: 768px) {
+            body, html {
+                justify-content: flex-start;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .about-container {
+                padding: 20px;
+                height: auto; /* Allow content to determine the height */
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .back-to-home-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .about-content h2 {
+                font-size: 24px;
+            }
+
+            .about-content p {
+                font-size: 16px;
+            }
+
+            .about-content ul li {
+                font-size: 16px;
+            }
+
+            .upgrade-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            .upgrade-section h3 {
+                font-size: 18px;
+            }
+
+            .email a {
+                font-size: 16px;
+            }
+
+            .community-section h3 {
+                font-size: 18px;
+            }
+
+            .join-button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Small Screens (phones) */
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .back-to-home-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+                margin-top: 10px;
+            }
+
+            .about-content h2 {
+                font-size: 20px;
+            }
+
+            .about-content p {
+                font-size: 14px;
+            }
+
+            .about-content ul li {
+                font-size: 14px;
+            }
+
+            .upgrade-section {
+                padding: 15px;
+            }
+
+            .upgrade-button {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+
+            .upgrade-section h3 {
+                font-size: 16px;
+            }
+
+            .email a {
+                font-size: 14px;
+            }
+
+            .community-section {
+                padding: 15px;
+            }
+
+            .join-button {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <div class="header">
+            <h1>About PaulAi</h1>
+            <a href="/" class="back-to-home-btn">Back to Home</a>
+        </div>
+
+        <div class="about-content">
+            <h2>Welcome to PaulAi!</h2>
+            <p>PaulAi is your personal AI assistant, designed to provide quick answers to a variety of questions and assist with learning new concepts in a wide range of subjects such as coding, math, general knowledge, and much more.</p>
+
+            <h3>Features:</h3>
+            <ul>
+                <li>Instant responses to a wide variety of questions.</li>
+                <li>Support for topics like math, science, and coding.</li>
+                <li>Interactive teaching capabilities—simply "teach me" new knowledge.</li>
+                <li>Save and refer to previous conversations anytime!</li>
+            </ul>
+
+            <h3>How It Works:</h3>
+            <p>PaulAi leverages advanced AI algorithms to understand your questions and provide highly relevant answers. Through a clean, easy-to-use chat interface, you can engage in fun conversations or learn new things with ease!</p>
+
+            <h3>Contact Us:</h3>
+            <p>If you have any questions, suggestions, or feedback, feel free to reach out via email:</p>
+            <p class="email"><a href="mailto:alngogpaulpierce821@gmail.com">alngogpaulpierce821@gmail.com</a></p>
+        </div>
+
+        <!-- Community Section -->
+        <div class="community-section">
+            <h3>Join Our Community</h3>
+            <p>Become part of the PaulAi community! Share ideas, discuss new features, and collaborate with other users and developers. Whether you're here to learn, contribute, or just chat about AI, there's a place for you.</p>
+            <p>Get involved in our ongoing projects, forums, and events. Together, we can make PaulAi even better!</p>
+            <button onclick="window.location.href='/community'" class="join-button">Join Now</button>
+        </div>
+
+        <div class="upgrade-section">
+            <h3>Upgrade to Premium!</h3>
+            <p>Enjoy even more amazing features with a premium subscription. Unlock personalized experiences and extra functionalities to get the most out of PaulAi.</p>
+            <button onclick="window.location.href='/upgrade'" class="upgrade-button">Upgrade Now</button>
+        </div>
+    </div>
+</body>
+</html>

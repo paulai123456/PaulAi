@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Royale</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #1e1e2f, #2b2b4a, #000033);
+            color: white;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        #lobby {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 20;
+        }
+
+        #lobby h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #lobby button {
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 70%;
+            max-width: 250px;
+            margin: 10px;
+        }
+
+        #lobby button:hover {
+            background: #218838;
+        }
+
+        #exitButton {
+            margin-top: 20px;
+            background: #dc3545;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 70%;
+            max-width: 250px;
+        }
+
+        #exitButton:hover {
+            background: #c82333;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            #info {
+                font-size: 12px;
+                top: 5px;
+                left: 5px;
+                padding: 5px;
+            }
+
+            #lobby h1 {
+                font-size: 1.5rem;
+            }
+
+            #lobby button, #exitButton {
+                font-size: 1.2rem;
+                width: 80%;
+            }
+        }
+
+        /* Ensure the canvas is responsive */
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Info HUD -->
+    <div id="info">
+        <p><b>Battle Royale</b></p>
+        <p>Players Left: <span id="playersLeft">100</span></p>
+        <p>Use Arrow Keys/WASD to move, Spacebar to shoot</p>
+        <p>Pick up guns by touching them!</p>
+    </div>
+
+    <!-- Lobby Screen -->
+    <div id="lobby" style="display: none;">
+        <h1>Welcome to the Lobby</h1>
+        <p>Your player is represented by the yellow circle below.</p>
+        <canvas id="lobbyCanvas" width="200" height="200"></canvas>
+        <button id="startGame">Start Game</button>
+        <!-- Exit Game Button -->
+        <button id="exitButton" onclick="exitGame()">Exit Game</button>
+    </div>
+
+    <script>
+        const canvas = document.createElement("canvas");
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const lobby = document.getElementById("lobby");
+        const lobbyCanvas = document.getElementById("lobbyCanvas");
+        const lobbyCtx = lobbyCanvas.getContext("2d");
+        const startGameButton = document.getElementById("startGame");
+
+        const playerSize = 15;
+        const gunSize = 10;
+        const bulletSize = 5;
+        const dropHeight = -200;
+        const numAI = 99;
+
+        let gameActive = false;
+        let gameInProgress = false;
+
+        const player = {
+            x: canvas.width / 2,
+            y: dropHeight,
+            dx: 0,
+            dy: 2,
+            speed: 3,
+            alive: true,
+            hasGun: false,
+        };
+
+        let aiPlayers = [];
+        let guns = [];
+        let bullets = [];
+
+        const keys = {};
+        window.addEventListener("keydown", (e) => (keys[e.key] = true));
+        window.addEventListener("keyup", (e) => (keys[e.key] = false));
+
+        function initializeGame() {
+            player.x = canvas.width / 2;
+            player.y = dropHeight;
+            player.alive = true;
+            player.hasGun = false;
+
+            aiPlayers = [];
+            for (let i = 0; i < numAI; i++) {
+                aiPlayers.push({
+                    x: Math.random() * canvas.width,
+                    y: dropHeight,
+                    dx: 0,
+                    dy: 2,
+                    alive: true,
+                    hasGun: false,
+                });
+            }
+
+            guns = [];
+            for (let i = 0; i < 50; i++) {
+                guns.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    collected: false,
+                });
+            }
+
+            bullets = [];
+            gameInProgress = true;
+            gameActive = true;
+
+            lobby.style.display = "none";
+            document.getElementById("info").style.display = "block";
+
+            gameLoop();
+        }
+
+        function movePlayer() {
+            if (keys["ArrowUp"] || keys["w"]) player.dy = -player.speed;
+            else if (keys["ArrowDown"] || keys["s"]) player.dy = player.speed;
+            else player.dy = 0;
+
+            if (keys["ArrowLeft"] || keys["a"]) player.dx = -player.speed;
+            else if (keys["ArrowRight"] || keys["d"]) player.dx = player.speed;
+            else player.dx = 0;
+
+            player.x += player.dx;
+            player.y += player.dy;
+
+            player.x = Math.max(0, Math.min(canvas.width, player.x));
+            player.y = Math.max(0, Math.min(canvas.height, player.y));
+        }
+
+        function moveAI() {
+            aiPlayers.forEach((ai) => {
+                if (!ai.alive) return;
+                if (ai.y < 0) {
+                    ai.y += ai.dy;
+                } else {
+                    ai.x += (Math.random() - 0.5) * 2;
+                    ai.y += (Math.random() - 0.5) * 2;
+                    ai.x = Math.max(0, Math.min(canvas.width, ai.x));
+                    ai.y = Math.max(0, Math.min(canvas.height, ai.y));
+                }
+            });
+        }
+
+        function drawPlayer() {
+            if (!player.alive) return;
+            ctx.fillStyle = player.hasGun ? "lime" : "yellow";
+            ctx.fillRect(player.x - playerSize / 2, player.y - playerSize / 2, playerSize, playerSize);
+        }
+
+        function drawAI() {
+            aiPlayers.forEach((ai) => {
+                if (!ai.alive) return;
+                ctx.fillStyle = ai.hasGun ? "red" : "orange";
+                ctx.fillRect(ai.x - playerSize / 2, ai.y - playerSize / 2, playerSize, playerSize);
+            });
+        }
+
+        function drawGuns() {
+            guns.forEach((gun) => {
+                if (gun.collected) return;
+                ctx.fillStyle = "blue";
+                ctx.fillRect(gun.x - gunSize / 2, gun.y - gunSize / 2, gunSize, gunSize);
+            });
+        }
+
+        function collectGuns() {
+            guns.forEach((gun) => {
+                if (gun.collected) return;
+                const dist = Math.hypot(player.x - gun.x, player.y - gun.y);
+                if (dist < playerSize) {
+                    gun.collected = true;
+                    player.hasGun = true;
+                }
+            });
+        }
+
+        function shootBullets() {
+            if (!player.hasGun || !keys[" "]) return;
+            bullets.push({ x: player.x, y: player.y, dx: 0, dy: -5 });
+        }
+
+        function moveBullets() {
+            bullets.forEach((bullet, index) => {
+                bullet.y += bullet.dy;
+                if (bullet.y < 0) bullets.splice(index, 1);
+            });
+        }
+
+        function drawBullets() {
+            bullets.forEach((bullet) => {
+                ctx.fillStyle = "white";
+                ctx.fillRect(bullet.x - bulletSize / 2, bullet.y - bulletSize / 2, bulletSize, bulletSize);
+            });
+        }
+
+        function checkCollisions() {
+            bullets.forEach((bullet, bulletIndex) => {
+                aiPlayers.forEach((ai, aiIndex) => {
+                    if (!ai.alive) return;
+                    const dist = Math.hypot(bullet.x - ai.x, bullet.y - ai.y);
+                    if (dist < playerSize) {
+                        ai.alive = false;
+                        bullets.splice(bulletIndex, 1);
+                    }
+                });
+            });
+        }
+
+        function checkWin() {
+            const alivePlayers = aiPlayers.filter((ai) => ai.alive);
+            if (alivePlayers.length === 0) {
+                alert("You won!");
+                gameActive = false;
+            }
+        }
+
+        function gameLoop() {
+            if (!gameActive) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            movePlayer();
+            moveAI();
+            collectGuns();
+            shootBullets();
+            moveBullets();
+
+            drawPlayer();
+            drawAI();
+            drawGuns();
+            drawBullets();
+            checkCollisions();
+            checkWin();
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        startGameButton.addEventListener("click", initializeGame);
+
+        showLobby(); // Initially show the lobby
+
+        // Lobby canvas setup
+        function showLobby() {
+            lobby.style.display = "flex";
+            lobbyCanvas.width = 200;
+            lobbyCanvas.height = 200;
+
+            const lobbyPlayer = {
+                x: lobbyCanvas.width / 2,
+                y: lobbyCanvas.height / 2,
+                size: 20, // Adjust the character size for the lobby
+            };
+
+            function drawLobbyPlayer() {
+                lobbyCtx.clearRect(0, 0, lobbyCanvas.width, lobbyCanvas.height);
+                lobbyCtx.fillStyle = "yellow";
+                lobbyCtx.beginPath();
+                lobbyCtx.arc(lobbyPlayer.x, lobbyPlayer.y, lobbyPlayer.size, 0, Math.PI * 2);
+                lobbyCtx.fill();
+            }
+
+            drawLobbyPlayer();
+        }
+
+        function exitGame() {
+            gameActive = false;
+            window.location.href = "/games"; // Go back to the /games page
+        }
+    </script>
+</body>
+</html>

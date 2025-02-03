@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create and Chat with Your AI Character</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6e7f7b, #3b4c5d);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            flex-grow: 1;
+        }
+
+        header h1 {
+            font-size: 3em;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        header p {
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            color: #eee;
+        }
+
+        label {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            background-color: #555;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background-color: #333;
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .chat-container {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        .chat-box {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .chat-message {
+            background-color: #444;
+            padding: 12px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            margin-left: auto;
+            color: white;
+            display: inline-block;
+            animation: slide-in 0.5s ease-in-out;
+        }
+
+        .chat-message.bot-message {
+            background-color: #555;
+        }
+
+        .chat-message.user-message {
+            background-color: #4CAF50;
+        }
+
+        .input-message {
+            width: calc(100% - 30px);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            background-color: #333;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .input-message:focus {
+            background-color: #444;
+            outline: none;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+
+        footer a:hover {
+            color: #FFD700;
+        }
+
+        .teach-me-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .teach-me-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Animation for the chat messages */
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Create Your AI Character</h1>
+        <p>Design a personalized AI character and start chatting with it!</p>
+    </header>
+
+    <form id="character-form">
+        <div class="form-group">
+            <label for="name">Character Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="appearance">Appearance:</label>
+            <input type="text" id="appearance" name="appearance" placeholder="e.g., futuristic, casual, etc." required>
+        </div>
+
+        <div class="form-group">
+            <label for="personality">Personality Traits:</label>
+            <textarea id="personality" name="personality" rows="4" placeholder="e.g., friendly, serious, humorous..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="abilities">Special Abilities:</label>
+            <textarea id="abilities" name="abilities" rows="4" placeholder="e.g., super speed, telepathy..." required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="voice">Voice Preference:</label>
+            <select id="voice" name="voice" required>
+                <option value="calm">Calm</option>
+                <option value="energetic">Energetic</option>
+                <option value="serious">Serious</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="profilePicture">Profile Picture:</label>
+            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewPfp(event)">
+            <img id="pfp-preview" src="" alt="Profile Picture" style="max-width: 150px; display:none; margin-top: 10px;">
+        </div>
+
+        <button type="submit">Create Character</button>
+    </form>
+</div>
+
+<div class="chat-container" style="display:none;" id="chat-container">
+    <header>
+        <h2>Chat with Your AI Character!</h2>
+    </header>
+
+    <div class="chat-box" id="chat-box">
+        <!-- Chat messages will appear here -->
+    </div>
+
+    <input type="text" class="input-message" id="message-input" placeholder="Type your message..." onkeyup="if(event.key === 'Enter') sendMessage()">
+    <button onclick="sendMessage()">Send</button>
+
+    <button class="teach-me-btn" onclick="teachMe()">Teach Me</button>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2024 PaulAI | All Rights Reserved</p>
+    <a href="/" onclick="goHome()">Home</a>
+    <a href="/contact" onclick="goContact()">Contact</a>
+</footer>
+
+<script>
+    let character = null;
+    const customResponses = {};
+
+    document.getElementById("character-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        character = {
+            name: document.getElementById("name").value,
+            appearance: document.getElementById("appearance").value,
+            personality: document.getElementById("personality").value,
+            abilities: document.getElementById("abilities").value,
+            voice: document.getElementById("voice").value,
+            pfp: document.getElementById("pfp-preview").src
+        };
+
+        document.querySelector('.container').style.display = 'none';
+        document.getElementById('chat-container').style.display = 'block';
+        displayMessage(`Hello! I am ${character.name}. Let's chat!`, 'bot');
+    });
+
+    function previewPfp(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("pfp-preview").style.display = 'block';
+                document.getElementById("pfp-preview").src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function sendMessage() {
+        const messageInput = document.getElementById('message-input');
+        const messageText = messageInput.value.trim();
+
+        if (messageText === '') return;
+
+        // Display the user's message
+        displayMessage(messageText, 'user');
+
+        // Check for custom responses
+        if (customResponses[messageText.toLowerCase()]) {
+            // If it matches a custom response, show that
+            displayMessage(customResponses[messageText.toLowerCase()], 'bot');
+        } else {
+            // Otherwise, show a default response
+            displayMessage(`${character.name} says: ${messageText}`, 'bot');
+        }
+
+        messageInput.value = '';  // Clear input
+    }
+
+    function displayMessage(message, sender) {
+        const chatBox = document.getElementById('chat-box');
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', sender === 'user' ? 'user-message' : 'bot-message');
+        
+        if (sender === 'bot') {
+            messageElement.innerHTML = `
+                <img src="${character.pfp}" alt="PFP" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; vertical-align: middle;">
+                ${message}`;
+        } else {
+            messageElement.textContent = message;
+        }
+
+        chatBox.appendChild(messageElement);
+        chatBox.scrollTop = chatBox.scrollHeight;  // Scroll to the bottom
+    }
+
+    function teachMe() {
+        const phraseToTeach = prompt("What phrase do you want to teach me?");
+        const responseToTeach = prompt("What should I say when you say that?");
+        
+        if (phraseToTeach && responseToTeach) {
+            customResponses[phraseToTeach.toLowerCase()] = responseToTeach;
+            alert(`I will remember "${phraseToTeach}" and respond with: "${responseToTeach}"`);
+        }
+    }
+
+    function goHome() {
+        window.location.href = '/';  // You can change this to the appropriate homepage URL
+    }
+
+    function goContact() {
+        window.location.href = '/contact';  // You can change this to the contact page URL
+    }
+</script>
+
+</body>
+</html>

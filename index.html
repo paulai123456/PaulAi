@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaulAi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Dark Mode and Light Mode Toggle */
+body[data-theme="dark"] {
+    background-color: #2e2e2e; /* Dark gray for the background */
+    color: white;
+    background-image: linear-gradient(135deg, #3a3a3a, #2e2e2e); /* Darker gradient */
+}
+
+body[data-theme="light"] {
+    background-color: #f4f4f4;
+    color: black;
+    background-image: linear-gradient(135deg, #e0e0e0, #f4f4f4);
+}
+
+/* Chat Container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: inherit;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-message,
+.bot-message {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    max-width: 75%;
+}
+
+/* User Message */
+.user-message {
+    background-color: #4A4A4A;
+    color: white;
+    align-self: flex-end;
+}
+
+/* Bot Message */
+.bot-message {
+    background-color: #D8D8D8;
+    color: black;
+    align-self: flex-start;
+}
+
+/* Chat Input */
+.chat-input {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+/* Button */
+button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Theme Toggle Button */
+.toggle-theme-btn {
+    padding: 10px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+/* AI Customize Icon */
+#ai-customize-icon {
+            position: absolute;
+            top: 60px; /* Below settings icon */
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        #ai-customize-icon:hover {
+            background-color: #ddd;
+        }
+
+        /* AI Customize Menu */
+        .customize-menu {
+            position: absolute;
+            top: 120px; /* Below the AI Customize Icon */
+            right: 10px;
+            width: 250px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 100;
+            display: none; /* Hidden by default */
+        }
+
+        .customize-menu label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .customize-menu input[type="range"] {
+            width: 100%;
+        }
+
+        .apply-button {
+            display: block;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .apply-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    {% if request.endpoint != 'about' %}
+    <!-- Sidebar Toggle Button (Hamburger Icon) -->
+    <div id="sidebar-toggle" class="sidebar-toggle">
+        &#9776; <!-- Hamburger Icon -->
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <h2>Saved Chats</h2>
+        <button class="save-chat-btn" id="save-chat-btn">Save Current Chat</button>
+        <div id="saved-chats-list">
+            <!-- Saved chats will be listed here -->
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div class="header">
+            <h1>PaulAi</h1>
+            {% if username %}
+            <div class="user-info">
+                <span>Welcome, {{ username }}</span>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+            {% else %}
+            <a href="/login" class="login-btn">Login</a>
+            {% endif %}
+        </div>
+
+
+        <!-- Settings Icon (Top-right corner) -->
+        <div id="settings-icon" class="settings-icon">&#9881;</div>
+
+        <!-- Settings Menu -->
+        <div id="settings-menu" class="settings-menu">
+            <button id="new-chat-btn">Start New Chat</button>
+            <button id="clear-chat-btn">Clear Chat</button>
+            <div class="voice-selection">
+                <label for="voice-dropdown">Select Voice:</label>
+                <select id="voice-dropdown">
+                    <!-- Populated dynamically using JavaScript -->
+                </select>
+            </div>
+            <!-- View Profile Link -->
+            <button id="view-profile-btn"><a href="/profile">View Profile</a></button>
+
+             <!-- Button to Analytics Page -->
+             <button onclick="location.href='/analytics'">Go to Analytics</button>
+             <!-- Button to Share Page -->
+             <button id="shareButton">Share</button>
+             <!-- Add a button to trigger notifications -->
+             <button id="notifyButton">Enable Notifications</button>
+             <!-- Button to Get Daily Tip -->
+         <button id="dailyTipButton">Get Daily Tip</button>
+         <!-- navigation button-->
+         <div class="nav-buttons">
+            <a href="/" class="home-btn">
+                <button class="home-btn">Home</button>
+            </a>
+            <a href="/forum" class="forum-btn">
+                <button class="forum-btn">Forum</button>
+            </a>
+        </div>
+        
+            <!-- Theme Toggle in Settings -->
+            <div class="theme-toggle">
+                <label for="theme-toggle-btn">Theme:</label>
+                <button class="toggle-theme-btn" id="theme-toggle-btn">🌙</button>
+            </div>
+        </div>
+ <!-- AI Customize Icon -->
+ <div id="ai-customize-icon">🛠 Customize AI</div>
+
+ <!-- AI Customize Menu -->
+ <div id="ai-customize-menu" class="customize-menu">
+     <h3>Customize Your AI</h3>
+     <label for="voice-speed">Voice Speed:</label>
+     <input type="range" id="voice-speed" min="0.5" max="2" step="0.1" value="1">
+     <span id="speed-value">1</span>
+
+     <label for="voice-pitch">Voice Pitch:</label>
+     <input type="range" id="voice-pitch" min="0" max="2" step="0.1" value="1">
+     <span id="pitch-value">1</span>
+
+      <!-- Persona Switch -->
+    <div class="persona-selector">
+        <label for="persona-select">Choose your chatbot persona:</label>
+        <select id="persona-select">
+            <option value="friendly">Friendly</option>
+            <option value="professional">Professional</option>
+            <option value="humorous">Humorous</option>
+        </select>
+    </div>
+
+    <!-- Switch Persona Button -->
+    <button class="switch-persona-btn" id="switch-persona-btn" onclick="switchPersona()">Switch Persona</button>
+
+     <button class="apply-button" id="apply-settings-btn">Apply Settings</button>
+ </div>
+         
+        <!-- Container for About and Upgrade buttons -->
+        <div class="about-upgrade-container">
+            <a href="/about" class="about-link">About</a>
+            {% if premium_user %}
+            <span class="premium-badge">Premium</span>
+            {% else %}
+            <a href="/upgrade" class="upgrade-link">Upgrade to Premium</a>
+            {% endif %}
+        </div>
+
+        <!-- Chat Box -->
+        <div class="chat-box" id="chat-box">
+            <div class="bot-message">Hello! How can I help you today?</div>
+        </div>
+
+        <!-- TTS Toggle Switch -->
+        <div class="tts-toggle-container">
+            <label class="switch">
+                <input type="checkbox" id="tts-switch" checked>
+                <span class="slider"></span>
+            </label>
+            <span id="tts-status">TTS ON</span>
+        </div>
+
+        <!-- Chat Input Form -->
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message..." required>
+            <button type="submit">Send</button>
+        </form>
+
+        <!-- Instruction Message -->
+        <div class="instruction-message">
+            If you want to teach the bot, just say <strong>"teach me (question): (answer)"</strong>.
+        </div>
+
+        <!-- Game Prompt Message -->
+<div class="game-prompt-message">
+    Wanna play a game? Just type <strong>'trivia'</strong>, <strong>'hangman'</strong>, or <strong>'storytelling'</strong> in the chat!
+</div>
+
+        <!-- Feedback Button -->
+        <div class="feedback-link">
+            <a href="{{ url_for('feedback_form') }}" class="feedback-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <script>
+        let currentPersona = 'friendly'; // Default persona
+
+// Handle persona change
+document.getElementById('persona-select').addEventListener('change', function() {
+    currentPersona = this.value;
+});
+
+// Function to switch the chatbot persona
+function switchPersona() {
+    fetch('/set_persona', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ persona: currentPersona })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert("Persona switched to " + currentPersona); // Notify user of persona change
+    });
+}
+// DOM Elements
+const aiCustomizeIcon = document.getElementById("ai-customize-icon");
+        const aiCustomizeMenu = document.getElementById("ai-customize-menu");
+        const voiceSpeed = document.getElementById("voice-speed");
+        const voicePitch = document.getElementById("voice-pitch");
+        const speedValue = document.getElementById("speed-value");
+        const pitchValue = document.getElementById("pitch-value");
+        const applySettingsBtn = document.getElementById("apply-settings-btn");
+
+        // Toggle AI Customize Menu
+        aiCustomizeIcon.addEventListener("click", () => {
+            aiCustomizeMenu.style.display = aiCustomizeMenu.style.display === "none" || !aiCustomizeMenu.style.display
+                ? "block"
+                : "none";
+        });
+
+        // Update slider values in real-time
+        voiceSpeed.addEventListener("input", () => {
+            speedValue.textContent = voiceSpeed.value;
+        });
+
+        voicePitch.addEventListener("input", () => {
+            pitchValue.textContent = voicePitch.value;
+        });
+
+        // Apply Settings
+        applySettingsBtn.addEventListener("click", () => {
+            const newSpeed = parseFloat(voiceSpeed.value);
+            const newPitch = parseFloat(voicePitch.value);
+
+            // Display the updated settings
+            alert(`AI Customization Applied:\nVoice Speed: ${newSpeed}\nVoice Pitch: ${newPitch}`);
+
+            // Connect to your AI system here (example placeholders):
+            console.log("Applying settings to AI system...");
+            console.log("Voice Speed:", newSpeed);
+            console.log("Voice Pitch:", newPitch);
+
+            // Example: myAI.setVoiceSpeed(newSpeed);
+            // Example: myAI.setVoicePitch(newPitch);
+        });
+        let isTtsEnabled = true; // Default state for TTS
+        let currentChat = []; // Stores current chat history
+        let selectedVoice = null; // Holds the selected voice
+        const voicesDropdown = document.getElementById("voice-dropdown");
+
+        // Function to populate voices in the dropdown
+        function populateVoices() {
+            if ('speechSynthesis' in window) {
+                const voices = window.speechSynthesis.getVoices();
+                voicesDropdown.innerHTML = '';
+                voices.forEach((voice, index) => {
+                    const option = document.createElement("option");
+                    option.value = index;
+                    option.textContent = `${voice.name} (${voice.lang})`;
+                    voicesDropdown.appendChild(option);
+                });
+
+                // Set the default selected voice
+                if (voices.length > 0) {
+                    selectedVoice = voices[0];
+                }
+            } else {
+                alert('Speech synthesis is not supported in your browser.');
+            }
+        }
+
+        // Update the selected voice
+        voicesDropdown.addEventListener("change", () => {
+            const voices = window.speechSynthesis.getVoices();
+            selectedVoice = voices[voicesDropdown.value];
+        });
+
+        // Text-to-Speech Function
+        function textToSpeech(message) {
+            if ('speechSynthesis' in window) {
+                const synth = window.speechSynthesis;
+                const utterance = new SpeechSynthesisUtterance(message);
+
+                // Apply selected voice
+                if (selectedVoice) {
+                    utterance.voice = selectedVoice;
+                }
+
+                utterance.lang = selectedVoice?.lang || "en-US";
+                utterance.volume = 1;
+                utterance.rate = 1;
+                utterance.pitch = 1;
+
+                utterance.onerror = function(event) {
+                    console.error('Speech synthesis failed:', event);
+                };
+
+                synth.speak(utterance);
+            } else {
+                console.log('Speech synthesis is not supported in this browser');
+                alert('Sorry, your browser does not support text-to-speech functionality.');
+            }
+        }
+       
+        document.getElementById('shareButton').onclick = function() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Chatbot Experience',
+        text: 'Check out this awesome chatbot!',
+        url: 'https://3qf7lksk-cenf7e55-q60lmfow95kx.aca2-preview.marscode.dev/',  <!-- Replace with your chatbot URL -->
+      }).then(() => {
+        console.log('Share was successful!');
+      }).catch((error) => {
+        console.log('Sharing failed:', error);
+      });
+    } else {
+      // Fallback: Provide a copyable link
+      prompt('Copy this link to share:', 'https://3qf7lksk-cenf7e55-q60lmfow95kx.aca2-preview.marscode.dev/');
+    }
+  };
+
+  // Inline JavaScript for Handling Button Click
+  document.getElementById('dailyTipButton').addEventListener('click', function() {
+            // Change button text to indicate it's loading the tip
+            this.innerText = 'Loading...';
+
+            // Make a request to the server for a random daily tip
+            fetch('/get-daily-tip')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the button's text with the daily tip
+                    document.getElementById('dailyTipButton').innerText = data.tip;
+                })
+                .catch(error => {
+                    console.error('Error fetching daily tip:', error);
+                    // If there's an error, reset the button text
+                    document.getElementById('dailyTipButton').innerText = 'Try Again';
+                });
+        });
+
+  // Check if the browser supports notifications
+  if ("Notification" in window) {
+    document.getElementById('notifyButton').onclick = function() {
+      // Request permission for notifications
+      Notification.requestPermission().then(function(permission) {
+        if (permission === "granted") {
+          new Notification("Thank you for enabling notifications!");
+          new Notification("Update Notification", { body: "New Features In PaulAi" });
+          new Notification("Notifications Enabled", { body: "You will now receive updates from our website!",icon: "/cloudide/workspace/test/icons" });
+        } else {
+          alert("Notifications are not enabled.");
+        }
+      });
+    };
+  } else {
+    alert("Your browser does not support notifications.");
+  }
+
+  // Register the service worker
+  navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('Service Worker registration failed:', error);
+      })
+
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then(function(registration) {
+      console.log('Service Worker registered with scope:', registration.scope);
+    })
+    .catch(function(error) {
+      console.log('Service Worker registration failed:', error);
+    });
+}
+
+        // Function to toggle TTS
+        function toggleTts() {
+            isTtsEnabled = !isTtsEnabled; // Toggle TTS state
+            const status = isTtsEnabled ? "TTS ON" : "TTS OFF";
+            document.getElementById("tts-status").innerText = status;
+        }
+
+        const form = document.getElementById("chat-form");
+        const chatBox = document.getElementById("chat-box");
+        const newChatBtn = document.getElementById("new-chat-btn");
+        const clearChatBtn = document.getElementById("clear-chat-btn");
+        const saveChatBtn = document.getElementById("save-chat-btn");
+        const savedChatsList = document.getElementById("saved-chats-list");
+        const sidebar = document.getElementById("sidebar");
+        const sidebarToggle = document.getElementById("sidebar-toggle");
+        const ttsSwitch = document.getElementById("tts-switch");
+
+        // Bind the switch to toggle TTS state
+        ttsSwitch.addEventListener("change", toggleTts);
+
+        // Sidebar Toggle Logic
+        sidebarToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+
+        // Handle chat form submission
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById("user-input").value;
+            chatBox.innerHTML += `<div class="user-message">${userInput}</div>`;
+
+            const response = await fetch("/get", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ msg: userInput }),
+            });
+            const data = await response.json();
+            const botMessage = data.response;
+            chatBox.innerHTML += `<div class="bot-message">${botMessage}</div>`;
+            document.getElementById("user-input").value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Add the messages to the current chat history
+            currentChat.push({ user: userInput, bot: botMessage });
+
+            // Text-to-Speech for bot's response
+            if (isTtsEnabled) textToSpeech(botMessage);
+        };
+
+        // Handle "Start New Chat" button click
+        newChatBtn.onclick = async () => {
+            const response = await fetch("/new_chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+            const data = await response.json();
+            chatBox.innerHTML = `<div class="bot-message">${data.response}</div>`;
+
+            // Text-to-Speech for new chat response
+            if (isTtsEnabled) textToSpeech(data.response);
+
+            // Clear the current chat history
+            currentChat = [];
+        };
+
+        // Handle "Clear Chat" button click
+        clearChatBtn.onclick = () => {
+            chatBox.innerHTML = '';  // Clear the chat box
+            currentChat = [];        // Reset the current chat history
+        };
+
+        // Save the current chat
+        saveChatBtn.addEventListener("click", async () => {
+            if (currentChat.length === 0) {
+                alert("No chat to save!");
+                return;
+            }
+
+            console.log('Saving current chat:', currentChat);
+
+            const response = await fetch("/save_chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat: currentChat }),
+            });
+
+            const data = await response.json();
+
+            console.log('Save response:', data);
+
+            if (data.success) {
+                alert("Chat saved successfully!");
+                loadSavedChats();
+            } else {
+                alert("Failed to save chat.");
+            }
+        });
+
+        // Load saved chats from the server
+        async function loadSavedChats() {
+            const response = await fetch("/saved_chats");
+            const data = await response.json();
+            savedChatsList.innerHTML = '';
+            if (data.savedChats && data.savedChats.length > 0) {
+                data.savedChats.forEach((chat, index) => {
+                    const chatItem = document.createElement("div");
+                    chatItem.classList.add("chat-item");
+                    chatItem.textContent = `Chat ${index + 1} - ${chat.time || 'No Time'}`;
+                    chatItem.addEventListener("click", () => {
+                        loadSavedChat(chat);  // Load the saved chat
+                    });
+                    savedChatsList.appendChild(chatItem);
+                });
+            } else {
+                savedChatsList.innerHTML = "<p>No saved chats found.</p>";
+            }
+        }
+
+        // Load a specific saved chat into the chat box
+        function loadSavedChat(chat) {
+            chatBox.innerHTML = '';  // Clear current chat
+            chat.chat.forEach((msg) => {
+                if (msg.user) {
+                    const userMessageDiv = document.createElement("div");
+                    userMessageDiv.classList.add("user-message");
+                    userMessageDiv.textContent = msg.user;
+                    chatBox.appendChild(userMessageDiv);
+                }
+                if (msg.bot) {
+                    const botMessageDiv = document.createElement("div");
+                    botMessageDiv.classList.add("bot-message");
+                    botMessageDiv.textContent = msg.bot;
+                    chatBox.appendChild(botMessageDiv);
+                }
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Load voices and saved chats when the page loads
+        window.onload = () => {
+            populateVoices();
+            loadSavedChats();
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = populateVoices;
+            }
+        };
+
+        // Toggle settings menu visibility
+        const settingsIcon = document.getElementById("settings-icon");
+        const settingsMenu = document.getElementById("settings-menu");
+
+        settingsIcon.addEventListener("click", () => {
+            settingsMenu.style.display = settingsMenu.style.display === "none" ? "block" : "none";
+        });
+
+        // Theme toggle button functionality inside settings
+        const themeToggleBtn = document.getElementById("theme-toggle-btn");
+        themeToggleBtn.addEventListener("click", () => {
+            const currentTheme = document.body.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            document.body.setAttribute("data-theme", newTheme);
+            themeToggleBtn.innerText = newTheme === "dark" ? "🌞" : "🌙"; // Change button icon
+        });
+          // Handle special commands like trivia, hangman, and storytelling
+          function handleSpecialCommands(userInput) {
+            if (userInput.toLowerCase().includes('trivia')) {
+                return "Let's play trivia! What category do you want?";
+            } else if (userInput.toLowerCase().includes('hangman')) {
+                return "Let's play hangman! Type your guess!";
+            } else if (userInput.toLowerCase().includes('tell me a story')) {
+                return "Once upon a time, there was a curious chatbot...";
+            } else {
+                return null;
+            }
+        }
+    </script>
+</body>
+</html>

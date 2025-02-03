@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Premium - PaulAi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f1f1; /* Light Gray */
+            color: #333; /* Dark Text */
+        }
+
+        /* Upgrade Page Styling */
+        .upgrade-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full screen height */
+            background-color: #f1f1f1;
+            padding: 0 20px;
+        }
+
+        .upgrade-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 750px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .upgrade-container:hover {
+            transform: translateY(-10px); /* Lift effect on hover */
+        }
+
+        .upgrade-container h1 {
+            font-size: 2.5rem;
+            color: #000; /* Black Text */
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .upgrade-container p {
+            font-size: 1.1rem;
+            color: #666; /* Darker Gray */
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .features-list ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 1.1rem;
+            color: #333; /* Dark Text */
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .features-list li:hover {
+            color: #4CAF50; /* Green on hover */
+            transform: translateX(5px); /* Slight shift to the right on hover */
+        }
+
+        .features-list li span {
+            font-weight: bold;
+            color: #000; /* Black Highlight */
+        }
+
+        .upgrade-btn {
+            background-color: #333; /* Black Button */
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+
+        .upgrade-btn:hover {
+            background-color: #222; /* Darker Black on Hover */
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        .upgrade-footer {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #777; /* Light Gray */
+        }
+
+        .upgrade-footer a {
+            color: #333; /* Dark Text */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .upgrade-footer a:hover {
+            color: #4CAF50; /* Green Hover on Link */
+            text-decoration: underline;
+        }
+
+        .benefit-header {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* Mobile-Responsive Styles */
+        @media (max-width: 768px) {
+            .upgrade-container h1 {
+                font-size: 2rem;
+            }
+
+            .upgrade-container p {
+                font-size: 1rem;
+            }
+
+            .features-list li {
+                font-size: 1rem;
+            }
+
+            .upgrade-btn {
+                font-size: 1.1rem;
+                padding: 12px 25px;
+            }
+
+            .upgrade-footer {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upgrade-page">
+        <div class="upgrade-container">
+            <h1>Upgrade to Premium</h1>
+            <p>Take your experience to the next level with our Premium plan. Unlock exclusive features that will enhance your productivity and give you full control over your data.</p>
+            <div class="features-list">
+                <div class="benefit-header">Premium Features:</div>
+                <ul>
+                    <li><span>Unlimited Chat History</span> – Never lose any valuable conversation. Save and refer back to all your past chats at any time.</li>
+                    <li><span>Priority Support</span> – Get fast-track assistance from our support team. No more waiting in line!</li>
+                    <li><span>Exclusive Features</span> – Access cutting-edge features and updates before anyone else. Be the first to explore new tools!</li>
+                    <li><span>Enhanced Security</span> – Your data is fully protected with additional encryption and backup features.</li>
+                    <li><span>Ad-Free Experience</span> – Enjoy a clean, distraction-free environment while chatting or browsing.</li>
+                </ul>
+            </div>
+            <a href="#" class="upgrade-btn">Upgrade Now</a>
+            <p class="upgrade-footer">Already a member? <a href="/">Go back to the chat</a></p>
+        </div>
+    </div>
+</body>
+</html>

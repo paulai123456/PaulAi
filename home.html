@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #181818;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+            color: #ddd;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
+            overflow-y: auto;
+            background-image: linear-gradient(135deg, #1f1f1f 0%, #333 100%);
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 24px;
+            color: #f1f1f1;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            margin: 0;
+            color: #fff;
+            font-size: 28px;
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .card a {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #f7f7f7;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #007bff;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background-color: #555;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            margin: 10px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Pop-up Modal Styles */
+        .popup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker background for contrast */
+            z-index: 9999;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease-in-out;
+        }
+
+        .popup-content {
+            background-color: #222;
+            color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-content h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .popup-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .popup-content a {
+            color: #00bfff;
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .popup-content button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-content button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .card .btn {
+                font-size: 16px;
+                padding: 12px 25px;
+            }
+
+            .popup-content {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 22px;
+            }
+
+            .card .btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .popup-content {
+                width: 90%;
+            }
+        }
+       
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Our AI Chatbot Website</h1>
+</header>
+
+<div class="container">
+    <div class="welcome-message">
+        <p>Hello, {{ username or 'Guest' }}! Welcome to our website. Explore and interact with our chatbot and community.</p>
+    </div>
+
+    <!-- User Authentication Buttons -->
+    <div class="btn-container">
+        {% if username %}
+        <a href="/profile" class="btn">Go to Profile</a>
+        <a href="/logout" class="btn">Logout</a>
+        {% else %}
+        <a href="/login" class="btn">Login</a>
+        <a href="/signup" class="btn">Sign Up</a>
+        {% endif %}
+    </div>
+    {% if username %}
+<!-- If the user is logged in, display the original buttons -->
+<!-- AI Extension Section -->
+<div class="card">
+    <h2>AI Extension</h2>
+    <p>Enhance your experience by adding our AI extension to your browser!</p>
+    <a href="/ai-extension" class="btn">Add AI Extension</a>
+</div>
+
+    <!-- Forum Section -->
+    <div class="card">
+        <h2>Forum</h2>
+        <p>Join our forum to discuss, share ideas, and ask questions with the community!</p>
+        <a href="/forum" class="btn">Visit Forum</a>
+    </div>
+
+    <!-- Community Projects Section -->
+<div class="card">
+    <h2>Community Projects</h2>
+    <p>Explore and collaborate on exciting AI projects from the community!</p>
+    <a href="/community-projects" class="btn">Visit Community Projects</a>
+</div>
+
+<!-- Community Section -->
+<div class="card">
+    <h2>Community</h2>
+    <p>Join the AI community, collaborate, and share knowledge with like-minded individuals!</p>
+    <a href="/community" class="btn">Visit Community Page</a>
+</div>
+
+    <!-- Chatbot Section -->
+    <div class="card">
+        <h2>Chat with PaulAI</h2>
+        <p>Have a conversation with our intelligent chatbot to learn more about AI and other topics!</p>
+        <a href="/chatbot" class="btn">Chat Now</a>
+    </div>
+
+    <!-- New Update List Section -->
+    <div class="card">
+        <h2>Check Our Latest Updates</h2>
+        <p>Stay up-to-date with the latest features and improvements.</p>
+        <a href="/updates" class="btn">View Update List</a>
+    </div>
+
+    <!-- App Download Section -->
+    <div class="card">
+        <h2>Download Our Application</h2>
+        <p>Try out the PaulAI app and take the experience to the next level!</p>
+        <a href="/download" class="btn">Download for Android</a>
+    </div>
+
+    <!-- AI Newsfeed Section -->
+    <div class="card">
+        <h2>AI Newsfeed</h2>
+        <p>Stay updated with the latest news about Artificial Intelligence!</p>
+        <a href="/newsfeed" class="btn">View AI Newsfeed</a>
+    </div>
+    <!-- Donation Section -->
+<div class="card">
+    <h2>Support Us</h2>
+    <p>If you appreciate our work and would like to support us, you can donate through the button below.</p>
+    <a href="/donate" class="btn">Donate Now</a>
+</div>
+
+    <!-- AI Research Section -->
+    <div class="card">
+        <h2>AI Research</h2>
+        <p>Explore cutting-edge research in the field of AI!</p>
+        <a href="/ai_research" class="btn">Read AI Research</a>
+    </div>
+    <!-- AI for Mental Health Section -->
+<div class="card">
+    <h2>AI for Mental Health</h2>
+    <p>Explore how AI can be used to assist in mental health support and wellness.</p>
+    <a href="/ai_for_mental_health" class="btn">Learn More</a>
+</div>
+
+    <!-- AI Tutorial Section -->
+    <div class="card">
+        <h2>AI Tutorial</h2>
+        <p>Learn more about AI with this in-depth tutorial video!</p>
+        <a href="/ai-tutorial" class="btn">Watch AI Tutorial</a>
+    </div>
+
+    <!-- Code Playground Section -->
+    <div class="card">
+        <h2>Code Playground</h2>
+        <p>Write, test, and debug code in real-time with our interactive playground!</p>
+        <a href="/code_playground" class="btn">Go to Code Playground</a>
+    </div>
+    <!-- Volunteer Section -->
+<div class="card">
+    <h2>Volunteer with Us</h2>
+    <p>Join our volunteer program and contribute to the community!</p>
+    <a href="/volunteer" class="btn">Become a Volunteer</a>
+</div>
+
+    <!-- Coding Section -->
+    <div class="card">
+        <h2>Learn Coding</h2>
+        <p>Start learning to code with our interactive tutorials and videos!</p>
+        <div class="btn-container">
+            <a href="/coding" class="btn">Go to Coding Page</a>
+        </div>
+    </div>
+    <!-- Upcoming Events Section -->
+<div class="card">
+    <h2>Upcoming Events</h2>
+    <p>Check out the exciting upcoming events for volunteers and participants!</p>
+    <a href="/upcoming-events" class="btn">View Upcoming Events</a>
+</div>
+
+<!-- Games Section -->
+<div class="card">
+    <h2>Games</h2>
+    <p>Play exciting games and challenge your skills!</p>
+    <a href="/games" class="btn">Go to Games</a>
+</div>
+
+<!-- Collaboration Section -->
+<div class="card">
+    <h2>Collaboration</h2>
+    <p>Partner with us and be part of innovative projects and ideas!</p>
+    <a href="/collaboration" class="btn">Go to Collaboration Page</a>
+</div>
+
+<!-- Error Report Section -->
+<div class="card">
+    <h2>Error Report</h2>
+    <p>If you've encountered an issue or error, you can report it here.</p>
+    <a href="/error-report" class="btn">Report an Error</a>
+</div>
+
+<!-- AI for Business Section -->
+<div class="card">
+    <h2>AI for Business</h2>
+    <p>Explore how AI can help transform businesses and enhance efficiency!</p>
+    <a href="/ai-for-business" class="btn">Learn More</a>
+</div>
+
+<!-- FAQ Section -->
+<div class="card">
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <p>Find answers to commonly asked questions about our services and features!</p>
+    <a href="/faq" class="btn">Go to FAQ</a>
+</div>
+
+<!-- Social Media Section -->
+<div class="card">
+    <h2>Follow Us on Social Media</h2>
+    <p>Stay connected with us on our social media platforms!</p>
+    <a href="/social-media" target="_blank" class="btn">Follow Us</a>
+</div>
+
+<!-- Live Coding Sessions Section -->
+<div class="card">
+    <h2>Live Coding Sessions</h2>
+    <p>Join our live coding sessions, interact with experts, and learn in real-time!</p>
+    <a href="/live-coding-sessions" class="btn">Go to Live Page</a>
+</div>
+
+<!-- Create AI Character Section -->
+<div class="card">
+    <h2>Create AI Character</h2>
+    <p>Design your very own AI character and enhance your experience with our platform!</p>
+    <a href="/create-ai-character" class="btn">Create AI Character</a>
+</div>
+<!-- VibeSpace Section -->
+<div class="card">
+    <h2>VibeSpace</h2>
+    <p>Join the social media revolution! Explore, share, and interact with cool videos on VibeSpace.</p>
+    <a href="/vibespace" class="btn">Go to VibeSpace</a>
+</div>
+<!-- Create Code Review Section -->
+<div class="card">
+    <h2>Automated Code Review</h2>
+    <p>Submit your code for an automated review and receive suggestions for improvement!</p>
+    <a href="/code_review" class="btn">Go to Code Review</a>
+</div>
+
+<!-- Careers Section -->
+<div class="card">
+    <h2>Join Our Team</h2>
+    <p>Explore exciting ICT opportunities and become part of our AI-driven future.</p>
+    <a href="/careers" class="btn">View Careers</a>
+</div>
+
+<!-- Building AI Guide Section -->
+<div class="card">
+    <h2>Learn How to Build AI</h2>
+    <p>Explore a comprehensive guide to building your own AI characters and customizing them to suit your needs!</p>
+    <a href="/building-ai-guide" class="btn">Start Learning</a>
+</div>
+
+<!-- AI Tools for Beginners Section -->
+<div class="card">
+    <h2>AI Tools for Beginners</h2>
+    <p>Learn about the best AI tools available for beginners to get started in the field of AI!</p>
+    <a href="/ai-tools" class="btn">Explore AI Tools</a>
+</div>
+
+    <!-- Code Library Section -->
+    <div class="card">
+        <h2>Code Library</h2>
+        <p>Explore a collection of code snippets and examples to enhance your development skills!</p>
+        <a href="/code-library" class="btn">Go to Code Library</a>
+    </div>
+</div>
+{% else %}
+<!-- If the user is not logged in, redirect all buttons to the signup page -->
+<div class="card">
+    <h2>AI Extension</h2>
+    <p>Enhance your experience by adding our AI extension to your browser!</p>
+    <a href="/signup" class="btn">Add AI Extension</a>
+</div>
+
+    <!-- Forum Section -->
+    <div class="card">
+        <h2>Forum</h2>
+        <p>Join our forum to discuss, share ideas, and ask questions with the community!</p>
+        <a href="/signup" class="btn">Visit Forum</a>
+    </div>
+
+    <!-- Community Projects Section -->
+<div class="card">
+    <h2>Community Projects</h2>
+    <p>Explore and collaborate on exciting AI projects from the community!</p>
+    <a href="/signup" class="btn">Visit Community Projects</a>
+</div>
+
+<!-- Community Section -->
+<div class="card">
+    <h2>Community</h2>
+    <p>Join the AI community, collaborate, and share knowledge with like-minded individuals!</p>
+    <a href="/signup" class="btn">Visit Community Page</a>
+</div>
+
+    <!-- Chatbot Section -->
+    <div class="card">
+        <h2>Chat with PaulAI</h2>
+        <p>Have a conversation with our intelligent chatbot to learn more about AI and other topics!</p>
+        <a href="/signup" class="btn">Chat Now</a>
+    </div>
+
+    <!-- New Update List Section -->
+    <div class="card">
+        <h2>Check Our Latest Updates</h2>
+        <p>Stay up-to-date with the latest features and improvements.</p>
+        <a href="/signup" class="btn">View Update List</a>
+    </div>
+
+    <!-- App Download Section -->
+    <div class="card">
+        <h2>Download Our Application</h2>
+        <p>Try out the PaulAI app and take the experience to the next level!</p>
+        <a href="/signup" class="btn">Download for Android</a>
+    </div>
+
+    <!-- AI Newsfeed Section -->
+    <div class="card">
+        <h2>AI Newsfeed</h2>
+        <p>Stay updated with the latest news about Artificial Intelligence!</p>
+        <a href="/signup" class="btn">View AI Newsfeed</a>
+    </div>
+    <!-- Donation Section -->
+<div class="card">
+    <h2>Support Us</h2>
+    <p>If you appreciate our work and would like to support us, you can donate through the button below.</p>
+    <a href="/signup" class="btn">Donate Now</a>
+</div>
+
+    <!-- AI Research Section -->
+    <div class="card">
+        <h2>AI Research</h2>
+        <p>Explore cutting-edge research in the field of AI!</p>
+        <a href="/signup" class="btn">Read AI Research</a>
+    </div>
+    <!-- AI for Mental Health Section -->
+<div class="card">
+    <h2>AI for Mental Health</h2>
+    <p>Explore how AI can be used to assist in mental health support and wellness.</p>
+    <a href="/signup" class="btn">Learn More</a>
+</div>
+
+    <!-- AI Tutorial Section -->
+    <div class="card">
+        <h2>AI Tutorial</h2>
+        <p>Learn more about AI with this in-depth tutorial video!</p>
+        <a href="/signup" class="btn">Watch AI Tutorial</a>
+    </div>
+
+    <!-- Code Playground Section -->
+    <div class="card">
+        <h2>Code Playground</h2>
+        <p>Write, test, and debug code in real-time with our interactive playground!</p>
+        <a href="/signup" class="btn">Go to Code Playground</a>
+    </div>
+    <!-- Volunteer Section -->
+<div class="card">
+    <h2>Volunteer with Us</h2>
+    <p>Join our volunteer program and contribute to the community!</p>
+    <a href="/signup" class="btn">Become a Volunteer</a>
+</div>
+
+    <!-- Coding Section -->
+    <div class="card">
+        <h2>Learn Coding</h2>
+        <p>Start learning to code with our interactive tutorials and videos!</p>
+        <div class="btn-container">
+            <a href="/signup" class="btn">Go to Coding Page</a>
+        </div>
+    </div>
+    <!-- Upcoming Events Section -->
+<div class="card">
+    <h2>Upcoming Events</h2>
+    <p>Check out the exciting upcoming events for volunteers and participants!</p>
+    <a href="/signup" class="btn">View Upcoming Events</a>
+</div>
+
+<!-- Games Section -->
+<div class="card">
+    <h2>Games</h2>
+    <p>Play exciting games and challenge your skills!</p>
+    <a href="/signup" class="btn">Go to Games</a>
+</div>
+
+<!-- Collaboration Section -->
+<div class="card">
+    <h2>Collaboration</h2>
+    <p>Partner with us and be part of innovative projects and ideas!</p>
+    <a href="/signup" class="btn">Go to Collaboration Page</a>
+</div>
+
+<!-- Error Report Section -->
+<div class="card">
+    <h2>Error Report</h2>
+    <p>If you've encountered an issue or error, you can report it here.</p>
+    <a href="/signup" class="btn">Report an Error</a>
+</div>
+
+<!-- AI for Business Section -->
+<div class="card">
+    <h2>AI for Business</h2>
+    <p>Explore how AI can help transform businesses and enhance efficiency!</p>
+    <a href="/signup" class="btn">Learn More</a>
+</div>
+
+<!-- FAQ Section -->
+<div class="card">
+    <h2>Frequently Asked Questions (FAQ)</h2>
+    <p>Find answers to commonly asked questions about our services and features!</p>
+    <a href="/signup" class="btn">Go to FAQ</a>
+</div>
+
+<!-- Social Media Section -->
+<div class="card">
+    <h2>Follow Us on Social Media</h2>
+    <p>Stay connected with us on our social media platforms!</p>
+    <a href="/signup" target="_blank" class="btn">Follow Us</a>
+</div>
+
+<!-- Live Coding Sessions Section -->
+<div class="card">
+    <h2>Live Coding Sessions</h2>
+    <p>Join our live coding sessions, interact with experts, and learn in real-time!</p>
+    <a href="/signup" class="btn">Go to Live Page</a>
+</div>
+
+<!-- Create AI Character Section -->
+<div class="card">
+    <h2>Create AI Character</h2>
+    <p>Design your very own AI character and enhance your experience with our platform!</p>
+    <a href="/signup" class="btn">Create AI Character</a>
+</div>
+
+<!-- VibeSpace Section -->
+<div class="card">
+    <h2>VibeSpace</h2>
+    <p>Join the social media revolution! Explore, share, and interact with cool videos on VibeSpace.</p>
+    <a href="/signup" class="btn">Go to VibeSpace</a>
+</div>
+
+<!-- Create Code Review Section -->
+<div class="card">
+    <h2>Automated Code Review</h2>
+    <p>Submit your code for an automated review and receive suggestions for improvement!</p>
+    <a href="/signup" class="btn">Go to Code Review</a>
+</div>
+
+<!-- Building AI Guide Section -->
+<div class="card">
+    <h2>Learn How to Build AI</h2>
+    <p>Explore a comprehensive guide to building your own AI characters and customizing them to suit your needs!</p>
+    <a href="/signup" class="btn">Start Learning</a>
+</div>
+
+<!-- AI Tools for Beginners Section -->
+<div class="card">
+    <h2>AI Tools for Beginners</h2>
+    <p>Learn about the best AI tools available for beginners to get started in the field of AI!</p>
+    <a href="/signup" class="btn">Explore AI Tools</a>
+</div>
+
+    <!-- Code Library Section -->
+    <div class="card">
+        <h2>Code Library</h2>
+        <p>Explore a collection of code snippets and examples to enhance your development skills!</p>
+        <a href="/signup" class="btn">Go to Code Library</a>
+    </div>
+</div>
+</div>
+{% endif %}
+<footer>
+    <p>&copy; 2024 AI Chatbot. <a href="/about">About Us</a> | <a href="/contact">Contact</a> | <a href="/privacy-terms">Privacy and Terms of use</a></p>
+</footer>
+
+<script>
+    const socket = io();
+        const room = "General"; // You can adjust for specific thread rooms
+
+        socket.emit('join', { username: 'User', room: room });
+
+        socket.on('message', (message) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += <div>${message}</div>;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+
+        function sendMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (message.trim()) {
+                socket.emit('message', { room: room, message: message });
+                document.getElementById('messageInput').value = '';
+            }
+        }
+
+        // Handle create thread form submission
+        document.getElementById('createThreadForm').onsubmit = function(event) {
+            event.preventDefault();
+            const category = document.getElementById('category').value;
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            fetch('/create-thread', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ category, title, content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Thread created successfully!');
+                // Optionally, update the page with the new thread
+            });
+        };
+</script>
+
+</body>
+</html>

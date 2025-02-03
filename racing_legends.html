@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racing Legends</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .game-description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 18px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        #game-result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #exit-button {
+            background-color: #e74c3c;
+        }
+
+        #exit-button:hover {
+            background-color: #c0392b;
+        }
+
+        #round-info {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .track {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, #f39c12, #e67e22);
+            border-radius: 20px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .track-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background-color: #2c3e50;
+        }
+
+        .track-start, .track-finish {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .player, .enemy {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #3498db;
+            transition: left 0.1s ease-out;
+        }
+
+        .enemy {
+            background-color: #e74c3c;
+        }
+
+        .speedometer {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .scoreboard {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Racing Legends</h1>
+        <p>Race your way to victory in high-speed challenges!</p>
+    </header>
+
+    <section class="game-description">
+        <h2>Game Overview</h2>
+        <p>Get behind the wheel and race against the best in Racing Legends. Speed, skill, and strategy are your keys to winning. Are you ready for the race of your life?</p>
+        <button id="startGameButton">Start Game</button>
+        <button id="exitButton" style="display: none;" onclick="exitGame()">Exit Game</button>
+        <div id="round-info"></div>
+        <div id="game-result"></div>
+        <div id="timer"></div>
+        <div class="track">
+            <div class="track-line" id="startLine"></div>
+            <div class="track-line" id="finishLine" style="right: 0;"></div>
+            <div class="player" id="player"></div>
+            <div class="enemy" id="enemy1"></div>
+            <div class="enemy" id="enemy2"></div>
+        </div>
+        <div class="speedometer">
+            Speed: <span id="speed">50</span> km/h
+        </div>
+        <div class="scoreboard">
+            Rounds Won: <span id="roundsWon">0</span> of 5
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Game Studio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let timer;
+        let timeLeft = 30;
+        let gameActive = false;
+        let round = 1;
+        const totalRounds = 5;
+        let roundsWon = 0;
+        let speed = 50;  // Set initial speed to 50 km/h
+        let playerPosition = 0;
+        const trackLength = 80;  // Percentage width of track where finish line is
+        let lastTime = Date.now();
+
+        const enemies = [
+            { id: 'enemy1', position: 0, speed: Math.random() * 0.3 + 0.2 },
+            { id: 'enemy2', position: 0, speed: Math.random() * 0.3 + 0.2 }
+        ];
+
+        document.getElementById("startGameButton").addEventListener("click", startGame);
+        document.getElementById("exitButton").style.display = "none";
+        document.addEventListener("keydown", handleKeyPress);
+
+        function startGame() {
+            gameActive = true;
+            round = 1;
+            roundsWon = 0;
+            playerPosition = 0;
+            speed = 50;  // Reset to initial speed when restarting
+            enemies.forEach(enemy => {
+                enemy.position = 0;
+            });
+
+            document.getElementById("game-result").innerHTML = "";
+            document.getElementById("round-info").innerHTML = `Round: ${round} of ${totalRounds}`;
+            document.getElementById("startGameButton").style.display = "none";
+            document.getElementById("exitButton").style.display = "inline-block";
+            document.getElementById("roundsWon").innerText = roundsWon;
+            timeLeft = 30;
+
+            document.getElementById("player").style.left = `0%`;
+            document.getElementById("enemy1").style.left = `0%`;
+            document.getElementById("enemy2").style.left = `0%`;
+
+            startTimer();
+            raceRound();
+        }
+
+        function startTimer() {
+            timer = setInterval(function () {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (gameActive) {
+                        document.getElementById("game-result").innerHTML = "Time's up! You failed to finish the race.";
+                        nextRound();
+                    }
+                } else {
+                    timeLeft--;
+                    document.getElementById("timer").innerHTML = `Time left: ${timeLeft}s`;
+                }
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.code === "Space" && gameActive) {
+                speed = Math.min(speed + 5, 300); // Increase speed on space bar press, but cap at 300 km/h
+                lastTime = Date.now(); // Reset the time to simulate a burst of acceleration
+            }
+        }
+
+        function raceRound() {
+            let playerSpeed = speed / 100; // Convert speed to percentage movement
+
+            let interval = setInterval(() => {
+                playerPosition += playerSpeed; // Update player position
+
+                // Update player position based on speed
+                if (playerPosition >= trackLength) {
+                    clearInterval(interval);
+                    roundsWon++;
+                    document.getElementById("game-result").innerHTML = "You crossed the finish line first!";
+                    updateScoreboard();
+                    nextRound();
+                } else {
+                    document.getElementById("player").style.left = `${playerPosition}%`;
+                    document.getElementById("speed").innerText = Math.round(speed);  // Display speed
+                }
+
+                // Gradually decrease speed if space bar is not pressed
+                if (Date.now() - lastTime > 100) {
+                    // Simulate natural deceleration if space bar is not pressed
+                    speed = Math.max(speed - 0.3, 50);  // Slow down gradually but never go below 50 km/h
+                }
+
+                // Update enemy positions
+                enemies.forEach(enemy => {
+                    enemy.position += enemy.speed;
+                    document.getElementById(enemy.id).style.left = `${enemy.position}%`;
+
+                    if (enemy.position >= trackLength) {
+                        clearInterval(interval);
+                        document.getElementById("game-result").innerHTML = "An enemy crossed the finish line first!";
+                        nextRound();
+                    }
+                });
+            }, 100);
+        }
+
+        function updateScoreboard() {
+            document.getElementById("roundsWon").innerText = roundsWon;
+        }
+
+        function nextRound() {
+            if (round < totalRounds) {
+                round++;
+                document.getElementById("round-info").innerHTML = `Round: ${round} of ${totalRounds}`;
+                startGame();
+            } else {
+                document.getElementById("game-result").innerHTML = `You completed all ${totalRounds} rounds!`;
+                document.getElementById("startGameButton").style.display = "inline-block";
+                document.getElementById("exitButton").style.display = "none";
+            }
+        }
+
+        function exitGame() {
+            gameActive = false;
+            clearInterval(timer);
+            document.getElementById("game-result").innerHTML = "You exited the game.";
+            // Redirect to /games page
+            window.location.href = "/games";
+        }
+    </script>
+</body>
+</html>

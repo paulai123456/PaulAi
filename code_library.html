@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            color: #ff6f61;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .search-bar input::placeholder {
+            color: #999999;
+        }
+
+        .snippet {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #2e2e2e;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .snippet:hover {
+            background-color: #333333;
+        }
+
+        .snippet h3 {
+            margin: 0;
+            font-size: 22px;
+            color: #ff6f61;
+        }
+
+        .snippet pre {
+            background-color: #1f1f1f;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: monospace;
+            color: #00ff00;
+            margin-top: 10px;
+        }
+
+        .snippet button {
+            margin-top: 15px;
+            background-color: #ff6f61;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .snippet button:hover {
+            background-color: #ff3b2f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1f1f1f;
+            color: #ffffff;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Code Library</h1>
+    </header>
+
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for code snippets..." oninput="filterSnippets()">
+        </div>
+
+        <!-- Code Snippets -->
+        <div id="snippetContainer">
+            <!-- New Snippets Below -->
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Reverse a String</h3>
+                <pre><code>def reverse_string(s):
+    return s[::-1]</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Fetch Data from API</h3>
+                <pre><code>fetch('https://api.example.com')
+    .then(response =&gt; response.json())
+    .then(data =&gt; console.log(data))</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="css frontend">
+                <h3>CSS: Grid Layout</h3>
+                <pre><code>.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="html frontend">
+                <h3>HTML: Table Structure</h3>
+                <pre><code>&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Header 1&lt;/th&gt;
+        &lt;th&gt;Header 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Row 1&lt;/td&gt;
+        &lt;td&gt;Row 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: List Comprehension</h3>
+                <pre><code>squares = [x*x for x in range(10)]</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Toggle Class</h3>
+                <pre><code>document.querySelector('.element').classList.toggle('active');</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="html frontend">
+                <h3>HTML: Forms with Inputs</h3>
+                <pre><code>&lt;form action="submit.php" method="post"&gt;
+    &lt;input type="text" name="username" placeholder="Enter your name"&gt;
+    &lt;input type="submit"&gt;
+&lt;/form&gt;</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: File I/O - Write to a File</h3>
+                <pre><code>with open('output.txt', 'w') as file:
+    file.write('Hello, World!')</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Create an Element</h3>
+                <pre><code>const newElement = document.createElement('div');
+newElement.textContent = 'New Element';
+document.body.appendChild(newElement);</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="css frontend">
+                <h3>CSS: Box Shadow</h3>
+                <pre><code>.box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="html frontend">
+                <h3>HTML: Embed YouTube Video</h3>
+                <pre><code>&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Exception Handling</h3>
+                <pre><code>try:
+    # risky code
+    pass
+except Exception as e:
+    print(e)</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Set Timeout</h3>
+                <pre><code>setTimeout(() =&gt; {
+    console.log('This will run after 2 seconds');
+}, 2000);</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="css frontend">
+                <h3>CSS: Flexbox Centering</h3>
+                <pre><code>.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Sorting List</h3>
+                <pre><code>numbers = [3, 1, 4, 1, 5, 9]
+numbers.sort()</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="html frontend">
+                <h3>HTML: Responsive Image</h3>
+                <pre><code>&lt;img src="image.jpg" alt="Description" style="width: 100%; height: auto;"&gt;</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Add Event Listener</h3>
+                <pre><code>document.querySelector('.button').addEventListener('click', function() {
+    alert('Button clicked!');
+});</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="css frontend">
+                <h3>CSS: Hide Element</h3>
+                <pre><code>.hidden {
+    display: none;
+}</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Lambda Function</h3>
+                <pre><code>square = lambda x: x * x
+print(square(5))</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="html frontend">
+                <h3>HTML: Link to Another Page</h3>
+                <pre><code>&lt;a href="about.html"&gt;Go to About Page&lt;/a&gt;</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="javascript frontend">
+                <h3>JavaScript: Local Storage</h3>
+                <pre><code>localStorage.setItem('key', 'value');
+const value = localStorage.getItem('key');</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Iterate Over Dictionary</h3>
+                <pre><code>my_dict = {'a': 1, 'b': 2}
+for key, value in my_dict.items():
+    print(key, value)</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="css frontend">
+                <h3>CSS: Transitions</h3>
+                <pre><code>.button {
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #ff6f61;
+}</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+
+            <div class="snippet" data-tags="python backend">
+                <h3>Python: Fibonacci Sequence</h3>
+                <pre><code>def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+print(fibonacci(10))</code></pre>
+                <button onclick="copySnippet(this)">Copy Code</button>
+            </div>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check If a Number is Prime</h3>
+            <pre><code>def is_prime(n):
+            if n <= 1:
+                return False
+            for i in range(2, n):
+                if n % i == 0:
+                    return False
+            return True</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Array Filter</h3>
+            <pre><code>const numbers = [1, 2, 3, 4, 5];
+        const evenNumbers = numbers.filter(num => num % 2 === 0);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Hover Effects</h3>
+            <pre><code>.button:hover {
+            background-color: #3498db;
+            color: white;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Unordered List</h3>
+            <pre><code>&lt;ul&gt;
+            &lt;li&gt;Item 1&lt;/li&gt;
+            &lt;li&gt;Item 2&lt;/li&gt;
+            &lt;li&gt;Item 3&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Dictionary Example</h3>
+            <pre><code>my_dict = {'key': 'value', 'name': 'John'}
+        print(my_dict['key'])</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Simple Countdown Timer</h3>
+            <pre><code>let time = 10;
+        const timer = setInterval(() =&gt; {
+            console.log(time);
+            time--;
+            if (time < 0) clearInterval(timer);
+        }, 1000);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Centering Text</h3>
+            <pre><code>.center-text {
+            text-align: center;
+            font-size: 18px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Dropdown Menu</h3>
+            <pre><code>&lt;select&gt;
+            &lt;option value="option1"&gt;Option 1&lt;/option&gt;
+            &lt;option value="option2"&gt;Option 2&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Sum of List</h3>
+            <pre><code>numbers = [1, 2, 3, 4, 5]
+        total = sum(numbers)
+        print(total)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Changing Style</h3>
+            <pre><code>document.querySelector('.element').style.backgroundColor = 'blue';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Find Max in List</h3>
+            <pre><code>numbers = [3, 5, 2, 8, 1]
+        max_num = max(numbers)
+        print(max_num)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Toggle Visibility</h3>
+            <pre><code>const element = document.querySelector('.element');
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Animation Example</h3>
+            <pre><code>@keyframes example {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+        
+        .element {
+            animation: example 2s infinite;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Button with Action</h3>
+            <pre><code>&lt;button onclick="alert('Hello!')"&gt;Click Me&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check for Even or Odd</h3>
+            <pre><code>number = 4
+        if number % 2 == 0:
+            print("Even")
+        else:
+            print("Odd")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Element by ID</h3>
+            <pre><code>const element = document.getElementById('elementId');
+        console.log(element);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Border Radius</h3>
+            <pre><code>.box {
+            border-radius: 10px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Image with Alt Text</h3>
+            <pre><code>&lt;img src="image.jpg" alt="Description"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Sum of Numbers in List</h3>
+            <pre><code>numbers = [1, 2, 3, 4, 5]
+        total_sum = sum(numbers)
+        print(total_sum)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add Class to Element</h3>
+            <pre><code>document.querySelector('.element').classList.add('new-class');</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Count Occurrences in List</h3>
+            <pre><code>numbers = [1, 2, 2, 3, 3, 3, 4]
+        occurrences = numbers.count(3)
+        print(occurrences)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Change Background Color</h3>
+            <pre><code>document.body.style.backgroundColor = 'lightblue';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Opacity Effect</h3>
+            <pre><code>.element {
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+        
+        .element:hover {
+            opacity: 1;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Nested List</h3>
+            <pre><code>&lt;ul&gt;
+            &lt;li&gt;Item 1&lt;/li&gt;
+            &lt;li&gt;Item 2
+                &lt;ul&gt;
+                    &lt;li&gt;Subitem 1&lt;/li&gt;
+                    &lt;li&gt;Subitem 2&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Join List into String</h3>
+            <pre><code>words = ['Hello', 'World']
+        sentence = ' '.join(words)
+        print(sentence)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add Item to Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        arr.push(4);
+        console.log(arr);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Hover Effects on Button</h3>
+            <pre><code>.button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #45a049;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Form with Multiple Inputs</h3>
+            <pre><code>&lt;form action="submit.php"&gt;
+            &lt;input type="text" name="username" placeholder="Enter your name"&gt;
+            &lt;input type="email" name="email" placeholder="Enter your email"&gt;
+            &lt;input type="submit"&gt;
+        &lt;/form&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Read from File</h3>
+            <pre><code>with open('file.txt', 'r') as file:
+            content = file.read()
+        print(content)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Remove Item from Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        arr.pop();
+        console.log(arr);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Sum of List</h3>
+            <pre><code>numbers = [1, 2, 3, 4, 5]
+        total = sum(numbers)
+        print(total)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Change Text Content</h3>
+            <pre><code>document.getElementById('elementId').textContent = 'New Text';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Border Radius</h3>
+            <pre><code>.box {
+            border-radius: 10px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Image with Caption</h3>
+            <pre><code>&lt;figure&gt;
+            &lt;img src="image.jpg" alt="Image"&gt;
+            &lt;figcaption&gt;This is an image caption.&lt;/figcaption&gt;
+        &lt;/figure&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Create a Dictionary</h3>
+            <pre><code>my_dict = {'name': 'John', 'age': 30}
+        print(my_dict)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Current Date</h3>
+            <pre><code>let currentDate = new Date();
+        console.log(currentDate);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Hover Over Link</h3>
+            <pre><code>a:hover {
+            color: red;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Button with Icon</h3>
+            <pre><code>&lt;button&gt;&lt;i class="fa fa-play"&gt;&lt;/i&gt; Play&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: List Slice</h3>
+            <pre><code>numbers = [1, 2, 3, 4, 5]
+        sliced = numbers[1:4]
+        print(sliced)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add New Element to DOM</h3>
+            <pre><code>const newElement = document.createElement('div');
+        newElement.textContent = 'New Element';
+        document.body.appendChild(newElement);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check If List is Empty</h3>
+            <pre><code>my_list = []
+        if not my_list:
+            print("List is empty")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Convert String to Number</h3>
+            <pre><code>let str = "123";
+        let num = Number(str);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Center Text</h3>
+            <pre><code>.text {
+            text-align: center;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Anchor Tag with Target</h3>
+            <pre><code>&lt;a href="https://example.com" target="_blank"&gt;Go to Example&lt;/a&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Remove Item from List</h3>
+            <pre><code>my_list = [1, 2, 3]
+        my_list.remove(2)
+        print(my_list)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add Element to Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        arr.push(4);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Box Size</h3>
+            <pre><code>.box {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Placeholder Text</h3>
+            <pre><code>&lt;input type="text" placeholder="Enter your name"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Count Occurrences in List</h3>
+            <pre><code>my_list = [1, 2, 2, 3, 4, 2]
+        count = my_list.count(2)
+        print(count)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Toggle Visibility</h3>
+            <pre><code>document.getElementById('elementId').style.display = 'none';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Background Gradient</h3>
+            <pre><code>.background {
+            background: linear-gradient(to right, red, yellow);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Video Embed</h3>
+            <pre><code>&lt;video width="320" height="240" controls&gt;
+            &lt;source src="movie.mp4" type="video/mp4"&gt;
+            Your browser does not support the video tag.
+        &lt;/video&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Find Maximum in List</h3>
+            <pre><code>my_list = [1, 2, 3, 4, 5]
+        max_value = max(my_list)
+        print(max_value)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Remove Element from Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        arr.splice(arr.indexOf(2), 1);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Text Shadow</h3>
+            <pre><code>.text-shadow {
+            text-shadow: 2px 2px 5px grey;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Input with Button</h3>
+            <pre><code>&lt;input type="text"&gt;
+        &lt;button&gt;Submit&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Open a File in Read Mode</h3>
+            <pre><code>with open('file.txt', 'r') as file:
+            content = file.read()
+        print(content)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Change Background Color</h3>
+            <pre><code>document.body.style.backgroundColor = "blue";</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Display Flex Items in Row</h3>
+            <pre><code>.flex-container {
+            display: flex;
+            flex-direction: row;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Checkbox Input</h3>
+            <pre><code>&lt;input type="checkbox" id="check"&gt; Agree to Terms</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Create a Set</h3>
+            <pre><code>my_set = {1, 2, 3, 4, 5}
+        print(my_set)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Create a Dictionary</h3>
+            <pre><code>my_dict = {"name": "Alice", "age": 25}</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Current Date</h3>
+            <pre><code>let currentDate = new Date();
+        console.log(currentDate);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Box Shadow</h3>
+            <pre><code>.box-shadow {
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.1);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Image Tag</h3>
+            <pre><code>&lt;img src="image.jpg" alt="Image Description"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Convert String to Uppercase</h3>
+            <pre><code>my_string = "hello"
+        uppercase_string = my_string.upper()
+        print(uppercase_string)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Remove Class from Element</h3>
+            <pre><code>document.getElementById('myElement').classList.remove('myClass');</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Position Fixed</h3>
+            <pre><code>.fixed {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Form with Input Fields</h3>
+            <pre><code>&lt;form&gt;
+            &lt;input type="text" placeholder="Your Name"&gt;
+            &lt;input type="email" placeholder="Your Email"&gt;
+            &lt;button type="submit"&gt;Submit&lt;/button&gt;
+        &lt;/form&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Sort List in Descending Order</h3>
+            <pre><code>my_list = [5, 2, 8, 3]
+        my_list.sort(reverse=True)
+        print(my_list)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add Event Listener</h3>
+            <pre><code>document.getElementById('myButton').addEventListener('click', function() {
+            alert('Button clicked!');
+        });</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Change Text Color</h3>
+            <pre><code>.text {
+            color: red;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Table with Rows and Columns</h3>
+            <pre><code>&lt;table&gt;
+            &lt;tr&gt;&lt;td&gt;Row 1, Cell 1&lt;/td&gt;&lt;td&gt;Row 1, Cell 2&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;Row 2, Cell 1&lt;/td&gt;&lt;td&gt;Row 2, Cell 2&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Append to File</h3>
+            <pre><code>with open('file.txt', 'a') as file:
+            file.write('New content\n')</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Change Text Content</h3>
+            <pre><code>document.getElementById('myElement').textContent = 'New Text';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Width and Height</h3>
+            <pre><code>.box {
+            width: 200px;
+            height: 200px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Button with Action</h3>
+            <pre><code>&lt;button onclick="alert('Hello World!')"&gt;Click Me&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Find Length of List</h3>
+            <pre><code>my_list = [1, 2, 3, 4]
+        length = len(my_list)
+        print(length)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Value of Input Field</h3>
+            <pre><code>let value = document.getElementById('myInput').value;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Font Size</h3>
+            <pre><code>.text {
+            font-size: 16px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Audio Embed</h3>
+            <pre><code>&lt;audio controls&gt;
+            &lt;source src="audio.mp3" type="audio/mp3"&gt;
+            Your browser does not support the audio tag.
+        &lt;/audio&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Iterate Over List</h3>
+            <pre><code>my_list = [1, 2, 3, 4]
+        for item in my_list:
+            print(item)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Set Background Color</h3>
+            <pre><code>document.body.style.backgroundColor = 'blue';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Display Flex Items in Column</h3>
+            <pre><code>.flex-container {
+            display: flex;
+            flex-direction: column;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Link to External CSS</h3>
+            <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Create a Set</h3>
+            <pre><code>my_set = {1, 2, 3}
+        print(my_set)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Check if Element Exists</h3>
+            <pre><code>if (document.getElementById('myElement')) {
+            console.log('Element exists');
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Hide Element</h3>
+            <pre><code>.hidden {
+            display: none;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Define a Div</h3>
+            <pre><code>&lt;div&gt;Content goes here&lt;/div&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Reverse a String</h3>
+            <pre><code>my_string = "hello"
+        reversed_string = my_string[::-1]
+        print(reversed_string)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Remove Element from DOM</h3>
+            <pre><code>let element = document.getElementById('myElement');
+        element.remove();</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Add Border</h3>
+            <pre><code>.box {
+            border: 2px solid black;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Select Dropdown</h3>
+            <pre><code>&lt;select&gt;
+            &lt;option value="option1"&gt;Option 1&lt;/option&gt;
+            &lt;option value="option2"&gt;Option 2&lt;/option&gt;
+        &lt;/select&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check if Key Exists in Dictionary</h3>
+            <pre><code>my_dict = {"name": "Alice", "age": 25}
+        if "name" in my_dict:
+            print("Name exists")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Hide Element</h3>
+            <pre><code>document.getElementById('myElement').style.display = 'none';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Font Family</h3>
+            <pre><code>.text {
+            font-family: Arial, sans-serif;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: List of Items</h3>
+            <pre><code>&lt;ul&gt;
+            &lt;li&gt;Item 1&lt;/li&gt;
+            &lt;li&gt;Item 2&lt;/li&gt;
+        &lt;/ul&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Sum of Numbers in List</h3>
+            <pre><code>my_list = [1, 2, 3, 4]
+        total = sum(my_list)
+        print(total)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Basic Header</h3>
+            <pre><code>&lt;h1&gt;Welcome to My Website&lt;/h1&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Center a Div</h3>
+            <pre><code>.center-div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Calculate the Square of a Number</h3>
+            <pre><code>num = 5
+        square = num ** 2
+        print(square)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Current URL</h3>
+            <pre><code>let currentURL = window.location.href;
+        console.log(currentURL);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Define a Paragraph</h3>
+            <pre><code>&lt;p&gt;This is a paragraph.&lt;/p&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Flexbox Row Layout</h3>
+            <pre><code>.flex-row {
+            display: flex;
+            flex-direction: row;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Filter Even Numbers</h3>
+            <pre><code>numbers = [1, 2, 3, 4, 5, 6]
+        even_numbers = filter(lambda x: x % 2 == 0, numbers)
+        print(list(even_numbers))</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Change Background Color</h3>
+            <pre><code>document.body.style.backgroundColor = 'lightblue';</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Input Field with Placeholder</h3>
+            <pre><code>&lt;input type="text" placeholder="Enter your name"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Border Radius</h3>
+            <pre><code>.rounded {
+            border-radius: 10px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Merge Two Lists</h3>
+            <pre><code>list1 = [1, 2, 3]
+        list2 = [4, 5, 6]
+        merged_list = list1 + list2
+        print(merged_list)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Add Item to Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        arr.push(4);
+        console.log(arr);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Ordered List</h3>
+            <pre><code>&lt;ol&gt;
+            &lt;li&gt;First Item&lt;/li&gt;
+            &lt;li&gt;Second Item&lt;/li&gt;
+        &lt;/ol&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Float Element</h3>
+            <pre><code>.float-left {
+            float: left;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check if File Exists</h3>
+            <pre><code>import os
+        if os.path.exists("file.txt"):
+            print("File exists")
+        else:
+            print("File not found")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Toggle Class</h3>
+            <pre><code>document.getElementById('myElement').classList.toggle('active');</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Checkbox</h3>
+            <pre><code>&lt;input type="checkbox"&gt; Accept Terms</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Set Height</h3>
+            <pre><code>.box {
+            height: 150px;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Define a Function</h3>
+            <pre><code>def greet(name):
+            return f"Hello, {name}!"
+        print(greet("Alice"))</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Convert String to Number</h3>
+            <pre><code>let str = "123";
+        let num = parseInt(str);
+        console.log(num);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Radio Button</h3>
+            <pre><code>&lt;input type="radio" name="choice" value="yes"&gt; Yes
+        &lt;input type="radio" name="choice" value="no"&gt; No</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Text Align Center</h3>
+            <pre><code>.center-text {
+            text-align: center;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Remove Item from List</h3>
+            <pre><code>my_list = [1, 2, 3, 4]
+        my_list.remove(3)
+        print(my_list)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: String Concatenation</h3>
+            <pre><code>let str1 = "Hello";
+        let str2 = "World";
+        let result = str1 + " " + str2;
+        console.log(result);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Button with JavaScript</h3>
+            <pre><code>&lt;button onclick="alert('Hello!')"&gt;Click Me&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Hide Element</h3>
+            <pre><code>.hidden {
+            display: none;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Join List into String</h3>
+            <pre><code>my_list = ['Hello', 'World']
+        result = ' '.join(my_list)
+        print(result)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get the Length of an Array</h3>
+            <pre><code>let arr = [1, 2, 3];
+        console.log(arr.length);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Embed YouTube Video</h3>
+            <pre><code>&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Background Image</h3>
+            <pre><code>.background {
+            background-image: url('background.jpg');
+            background-size: cover;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Read from File</h3>
+            <pre><code>with open('file.txt', 'r') as file:
+            content = file.read()
+            print(content)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Show an Alert</h3>
+            <pre><code>alert('Hello World!');</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Image Element</h3>
+            <pre><code>&lt;img src="image.jpg" alt="Image Description"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Text Shadow</h3>
+            <pre><code>.text-shadow {
+            text-shadow: 2px 2px 5px grey;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Print a Range of Numbers</h3>
+            <pre><code>for i in range(1, 6):
+            print(i)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Validate Email Format</h3>
+            <pre><code>let email = 'test@example.com';
+        let regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        console.log(regex.test(email));</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Table Element</h3>
+            <pre><code>&lt;table&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Age&lt;/th&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;John&lt;/td&gt;
+                &lt;td&gt;25&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Box Shadow</h3>
+            <pre><code>.box {
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: List Comprehension</h3>
+            <pre><code>numbers = [1, 2, 3, 4]
+        squared_numbers = [x ** 2 for x in numbers]
+        print(squared_numbers)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Get Current Date</h3>
+            <pre><code>let currentDate = new Date();
+        console.log(currentDate);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Form Element</h3>
+            <pre><code>&lt;form action="submit.php" method="POST"&gt;
+            &lt;input type="text" name="name"&gt;
+            &lt;input type="submit"&gt;
+        &lt;/form&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="ruby backend">
+            <h3>Ruby: Reverse a String</h3>
+            <pre><code>def reverse_string(s)
+            s.reverse
+        end</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="php backend">
+            <h3>PHP: Connect to MySQL</h3>
+            <pre><code>$conn = new mysqli('localhost', 'username', 'password', 'database');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="java backend">
+            <h3>Java: Check Palindrome</h3>
+            <pre><code>public class Palindrome {
+            public static boolean isPalindrome(String str) {
+                String reversed = new StringBuilder(str).reverse().toString();
+                return str.equals(reversed);
+            }
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="csharp backend">
+            <h3>C#: Fibonacci Sequence</h3>
+            <pre><code>using System;
+        class Program {
+            static void Main() {
+                int n = 10;
+                int a = 0, b = 1, temp;
+                for (int i = 0; i < n; i++) {
+                    Console.Write(a + " ");
+                    temp = a;
+                    a = b;
+                    b = temp + b;
+                }
+            }
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="swift frontend">
+            <h3>Swift: Swap Two Variables</h3>
+            <pre><code>var a = 5
+        var b = 10
+        (a, b) = (b, a)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="kotlin backend">
+            <h3>Kotlin: String to Int</h3>
+            <pre><code>val str = "123"
+        val num = str.toInt()</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="r backend">
+            <h3>R: Plotting a Graph</h3>
+            <pre><code>plot(c(1, 2, 3, 4), c(10, 20, 30, 40), type="o")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="go backend">
+            <h3>Go: Hello World</h3>
+            <pre><code>package main
+        import "fmt"
+        func main() {
+            fmt.Println("Hello, World!")
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="rust backend">
+            <h3>Rust: Factorial Function</h3>
+            <pre><code>fn factorial(n: u64) -> u64 {
+            if n == 0 { 1 } else { n * factorial(n - 1) }
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="sql database">
+            <h3>SQL: Select Data from Table</h3>
+            <pre><code>SELECT * FROM users WHERE age > 18;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="typescript frontend">
+            <h3>TypeScript: Interface Example</h3>
+            <pre><code>interface Person {
+            name: string;
+            age: number;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="bash scripting">
+            <h3>Bash: Hello World</h3>
+            <pre><code>echo "Hello, World!"</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="ruby backend">
+            <h3>Ruby: Array Sort</h3>
+            <pre><code>arr = [3, 1, 2, 4]
+        arr.sort!</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="php backend">
+            <h3>PHP: Loop Through an Array</h3>
+            <pre><code>$arr = [1, 2, 3, 4];
+        foreach ($arr as $value) {
+            echo $value;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="java backend">
+            <h3>Java: Array Sorting</h3>
+            <pre><code>int[] arr = {3, 1, 4, 1, 5};
+        Arrays.sort(arr);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="csharp backend">
+            <h3>C#: Reverse an Array</h3>
+            <pre><code>using System;
+        class Program {
+            static void Main() {
+                int[] arr = {1, 2, 3, 4};
+                Array.Reverse(arr);
+            }
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="swift frontend">
+            <h3>Swift: Dictionary Example</h3>
+            <pre><code>var person = ["name": "John", "age": "30"]
+        print(person["name"]!)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="kotlin backend">
+            <h3>Kotlin: Check Null Safety</h3>
+            <pre><code>val str: String? = null
+        println(str?.length ?: "String is null")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="r backend">
+            <h3>R: Calculate Mean</h3>
+            <pre><code>numbers <- c(1, 2, 3, 4, 5)
+        mean(numbers)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="go backend">
+            <h3>Go: Map Example</h3>
+            <pre><code>package main
+        import "fmt"
+        func main() {
+            m := make(map[string]int)
+            m["a"] = 1
+            fmt.Println(m)
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Check If a Number is Prime</h3>
+            <pre><code>def is_prime(n):
+            if n <= 1:
+                return False
+            for i in range(2, int(n**0.5) + 1):
+                if n % i == 0:
+                    return False
+            return True</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Array Filter</h3>
+            <pre><code>let numbers = [1, 2, 3, 4, 5];
+        let evenNumbers = numbers.filter(num => num % 2 === 0);</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Create a Button</h3>
+            <pre><code>&lt;button&gt;Click Me!&lt;/button&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Change Background Color on Hover</h3>
+            <pre><code>button:hover {
+            background-color: lightblue;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Create an Image</h3>
+            <pre><code>&lt;img src="image.jpg" alt="Sample Image"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Center Align Text</h3>
+            <pre><code>p {
+            text-align: center;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: Count Words in a String</h3>
+            <pre><code>def count_words(s):
+            words = s.split()
+            return len(words)</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="typescript frontend">
+            <h3>TypeScript: Tuple Example</h3>
+            <pre><code>let person: [string, number] = ["John", 25];</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="c frontend">
+            <h3>C: Sum of Two Numbers</h3>
+            <pre><code>#include &lt;stdio.h&gt;
+        int main() {
+            int a = 5, b = 10;
+            int sum = a + b;
+            printf("Sum: %d", sum);
+            return 0;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="ruby backend">
+            <h3>Ruby: Read from File</h3>
+            <pre><code>file = File.open("text.txt", "r")
+        contents = file.read
+        file.close</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="php backend">
+            <h3>PHP: Check if File Exists</h3>
+            <pre><code>if (file_exists("file.txt")) {
+            echo "File exists.";
+        } else {
+            echo "File not found.";
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="go backend">
+            <h3>Go: Slice Example</h3>
+            <pre><code>package main
+        import "fmt"
+        func main() {
+            nums := []int{1, 2, 3, 4, 5}
+            fmt.Println(nums[1:4])
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="javascript frontend">
+            <h3>JavaScript: Fetch API</h3>
+            <pre><code>fetch('https://api.example.com/data')
+            .then(response => response.json())
+            .then(data => console.log(data));</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="html frontend">
+            <h3>HTML: Create an Input Field</h3>
+            <pre><code>&lt;input type="text" placeholder="Enter text"&gt;</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="css frontend">
+            <h3>CSS: Create a Gradient Background</h3>
+            <pre><code>body {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="python backend">
+            <h3>Python: File Handling</h3>
+            <pre><code>with open("file.txt", "w") as file:
+            file.write("Hello, World!")</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="java backend">
+            <h3>Java: Simple For Loop</h3>
+            <pre><code>for (int i = 0; i &lt; 5; i++) {
+            System.out.println(i);
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="bash scripting">
+            <h3>Bash: Create a Directory</h3>
+            <pre><code>mkdir new_directory</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>
+        
+        <div class="snippet" data-tags="typescript frontend">
+            <h3>TypeScript: Function Example</h3>
+            <pre><code>function greet(name: string): string {
+            return `Hello, ${name}!`;
+        }</code></pre>
+            <button onclick="copySnippet(this)">Copy Code</button>
+        </div>                                                                        
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your AI Website. <a href="/" style="color: #ff6f61;">Back to Home</a></p>
+    </footer>
+
+    <script>
+        // Function to copy code to clipboard
+        function copySnippet(button) {
+            const code = button.previousElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+
+        // Function to filter snippets based on search input
+        function filterSnippets() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const snippets = document.querySelectorAll('.snippet');
+
+            snippets.forEach(snippet => {
+                const tags = snippet.getAttribute('data-tags').toLowerCase();
+                const title = snippet.querySelector('h3').textContent.toLowerCase();
+
+                if (tags.includes(searchInput) || title.includes(searchInput)) {
+                    snippet.style.display = '';
+                } else {
+                    snippet.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
